@@ -18,7 +18,9 @@ string dbUri = "Host=localhost;Port=5455;Username=postgres;Password=postgres;Dat
 
 await using var db = NpgsqlDataSource.Create(dbUri);
 
-await using (var cmd = db.CreateCommand("CREATE TABLE customer (id INT, first_name VARCHAR(50), last_name VARCHAR(50), email VARCHAR(80), number INT, date_of_birth DATE)"))
+
+//ska telefonnumret vara TEXT eller INTEGER?
+await using (var cmd = db.CreateCommand("CREATE TABLE customer (id INTEGER, first_name TEXT, last_name TEXT, email TEXT, number INTEGER, date_of_birth DATE)"))
 {
     await cmd.ExecuteNonQueryAsync();
 }

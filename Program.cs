@@ -4,13 +4,14 @@
 /*
 string dbUri2 = "Host=localhost;Port=5455;Username=postgres;Password=postgres;";
         
-await using var db2 = NpgsqlDataSource.Create(dbUri);
+await using var db2 = NpgsqlDataSource.Create(dbUri2);
 
 await using (var cmd = db2.CreateCommand("CREATE DATABASE holidaymaker"))
 { 
     await cmd.ExecuteNonQueryAsync();
 }
 */
+
 string dbUri = "Host=localhost;Port=5455;Username=postgres;Password=postgres;Database=holidaymaker;";
 
 await using var db = NpgsqlDataSource.Create(dbUri);

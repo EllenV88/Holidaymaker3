@@ -40,3 +40,14 @@ number_of_allinclusive_adult INT DEFAULT NULL
 {
     await cmd.ExecuteNonQueryAsync();
 }
+
+await using (var cmd = db.CreateCommand(@"CREATE TABLE IF NOT EXISTS rooms(
+id SERIAL PRIMARY KEY, 
+type TEXT, 
+hotel_id INT,
+price MONEY
+)"))
+
+{
+    await cmd.ExecuteNonQueryAsync();
+}

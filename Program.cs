@@ -28,25 +28,22 @@ price_allinclusive_adult MONEY
     await cmd.ExecuteNonQueryAsync();
 }
 
-await using (var cmd = db.CreateCommand(@"CREATE TABLE IF NOT EXISTS additions(
+await using (var cmd = db.CreateCommand(@"CREATE TABLE IF NOT EXISTS bookings(
 id SERIAL PRIMARY KEY, 
-number_of_extrabeds INT DEFAULT NULL CHECK (number_of_extrabeds <= 1), 
-number_of_halfboard_child INT DEFAULT NULL, 
-number_of_halfboard_adult INT DEFAULT NULL, 
-number_of_allinclusive_child INT DEFAULT NULL, 
-number_of_allinclusive_adult INT DEFAULT NULL
+hotels_id INTEGER, 
+rooms_id INTEGER,
+customers_id INTEGER,
+check_in_date DATE,
+check_out_date DATE,
+number_of_extrabeds INTEGER DEFAULT NULL CHECK (number_of_extrabeds <= 1), 
+number_of_halfboard_child INTEGER, 
+number_of_halfboard_adult INTEGER, 
+number_of_allinclusive_child INTEGER, 
+number_of_allinclusive_adult INTEGER, 
+adults INTEGER, 
+children INTEGER
 )"))
 
-{
-    await cmd.ExecuteNonQueryAsync();
-}
-
-await using (var cmd = db.CreateCommand(@"CREATE TABLE IF NOT EXISTS guests(
-id SERIAL PRIMARY KEY, 
-adults INT DEFAULT NULL, 
-children INT DEFAULT NULL
-)"))
-  
 {
     await cmd.ExecuteNonQueryAsync();
 }
@@ -54,7 +51,7 @@ children INT DEFAULT NULL
 await using (var cmd = db.CreateCommand(@"CREATE TABLE IF NOT EXISTS rooms(
 id SERIAL PRIMARY KEY, 
 type TEXT, 
-hotel_id INT,
+hotel_id INTEGER,
 price MONEY
 )"))
 

@@ -20,7 +20,7 @@ await using var db = NpgsqlDataSource.Create(dbUri);
 
 
 //ska telefonnumret vara TEXT eller INTEGER?
-await using (var cmd = db.CreateCommand("CREATE TABLE customer (id INTEGER, first_name TEXT, last_name TEXT, email TEXT, number INTEGER, date_of_birth DATE)"))
+await using (var cmd = db.CreateCommand("CREATE TABLE customer (id SERIAL PRIMARY KEY, first_name TEXT, last_name TEXT, email TEXT, number INTEGER, date_of_birth DATE)"))
 {
     await cmd.ExecuteNonQueryAsync();
 }

@@ -46,6 +46,17 @@ id SERIAL PRIMARY KEY,
 adults INT DEFAULT NULL, 
 children INT DEFAULT NULL
 )"))
+  
+{
+    await cmd.ExecuteNonQueryAsync();
+}
+
+await using (var cmd = db.CreateCommand(@"CREATE TABLE IF NOT EXISTS rooms(
+id SERIAL PRIMARY KEY, 
+type TEXT, 
+hotel_id INT,
+price MONEY
+)"))
 
 {
     await cmd.ExecuteNonQueryAsync();

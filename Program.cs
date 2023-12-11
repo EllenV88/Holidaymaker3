@@ -1,8 +1,25 @@
 ﻿using Npgsql;
 
+
+/*
+string dbUri2 = "Host=localhost;Port=5455;Username=postgres;Password=postgres;";
+        
+await using var db2 = NpgsqlDataSource.Create(dbUri);
+
+await using (var cmd = db2.CreateCommand("CREATE DATABASE holidaymaker"))
+{ 
+    await cmd.ExecuteNonQueryAsync();
+}
+*/
 string dbUri = "Host=localhost;Port=5455;Username=postgres;Password=postgres;Database=holidaymaker;";
 
 await using var db = NpgsqlDataSource.Create(dbUri);
+
+await using (var cmd = db.CreateCommand(
+                 "CREATE TABLE IF NOT EXISTS customers (id SERIAL PRIMARY KEY, first_name TEXT, last_name TEXT, email TEXT, number INTEGER, date_of_birth DATE)"))
+{
+    await cmd.ExecuteNonQueryAsync();
+}
 
 await using (var cmd = db.CreateCommand(@"CREATE TABLE IF NOT EXISTS hotels (
 id SERIAL PRIMARY KEY,

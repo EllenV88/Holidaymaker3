@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Npgsql;
 
 namespace makedatabase;
@@ -63,4 +64,8 @@ class Script
             await cmd.ExecuteNonQueryAsync();
         }
     }    
+
+    public static async Task PopulateDatabase(){
+        
+    }
 }

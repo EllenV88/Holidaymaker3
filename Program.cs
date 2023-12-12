@@ -2,6 +2,7 @@
 using makedatabase;
 using System.Runtime.CompilerServices;
 
+#region CreateDatabaseMenu
 Console.WriteLine("do you want to create the database?");
 string userinput = Console.ReadLine();
 if ("y" == userinput || "" == userinput){
@@ -20,3 +21,4 @@ if ("y" == userinput || "" == userinput){
     Console.WriteLine("testtest");
     //await Script.notimplemented();
 }
+#endregion

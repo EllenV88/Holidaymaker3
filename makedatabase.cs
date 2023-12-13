@@ -21,8 +21,13 @@ class Script
 
         await using var db = NpgsqlDataSource.Create(dbUri);
 
-        await using (var cmd = db.CreateCommand(
-                            "CREATE TABLE IF NOT EXISTS customers (id SERIAL PRIMARY KEY, first_name TEXT, last_name TEXT, email TEXT, number INTEGER, date_of_birth DATE)"))
+        await using (var cmd = db.CreateCommand(@"CREATE TABLE IF NOT EXISTS customers (
+            id SERIAL PRIMARY KEY, 
+            first_name TEXT, 
+            last_name TEXT, 
+            email TEXT, 
+            number INTEGER, 
+            date_of_birth DATE)"))
         {
            await cmd.ExecuteNonQueryAsync();
         }
@@ -45,8 +50,7 @@ class Script
             price_halfboard_adult MONEY, 
             price_allinclusive_child MONEY, 
             price_allinclusive_adult MONEY
-        )"))
-
+        )")) 
         {
             await cmd.ExecuteNonQueryAsync();
         }
@@ -58,8 +62,7 @@ class Script
             number_of_halfboard_adult INT DEFAULT NULL, 
             number_of_allinclusive_child INT DEFAULT NULL, 
             number_of_allinclusive_adult INT DEFAULT NULL
-            )"))
-
+            )")) 
         {
             await cmd.ExecuteNonQueryAsync();
         }

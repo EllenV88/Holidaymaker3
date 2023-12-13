@@ -1,22 +1,25 @@
 using System.Runtime.CompilerServices;
 using Npgsql;
 
-namespace makedatabase;
-class Script 
+namespace Holidaymaker3;
+
+class Script
 {
-    
-    public static async Task CreateDatabase(){
+
+    public async Task CreateDatabase()
+    {
         string dbUri = "Host=localhost;Port=5455;Username=postgres;Password=postgres;";
-        
+
         await using var db = NpgsqlDataSource.Create(dbUri);
 
         await using (var cmd = db.CreateCommand("CREATE DATABASE holidaymaker"))
-        { 
+        {
             await cmd.ExecuteNonQueryAsync();
         }
     }
-    public static async Task MakeTables()
-    { 
+
+    public async Task MakeTables()
+    {
         string dbUri = "Host=localhost;Port=5455;Username=postgres;Password=postgres;Database=holidaymaker;";
 
         await using var db = NpgsqlDataSource.Create(dbUri);
@@ -29,7 +32,7 @@ class Script
             phone_number BIGINT, 
             date_of_birth DATE)"))
         {
-           await cmd.ExecuteNonQueryAsync();
+            await cmd.ExecuteNonQueryAsync();
         }
 
         await using (var cmd = db.CreateCommand(@"CREATE TABLE IF NOT EXISTS hotels (
@@ -41,7 +44,7 @@ class Script
             beach_distance NUMERIC, 
             center_distance NUMERIC, 
             rating NUMERIC
-        )")) 
+        )"))
         {
             await cmd.ExecuteNonQueryAsync();
         }
@@ -117,17 +120,19 @@ class Script
         {
             await cmd.ExecuteNonQueryAsync();
         }
-    }    
+    }
 
-    public static async Task PopulateDatabase(){
-        
+    public async Task PopulateDatabase()
+    {
+
         string dbUri = "Host=localhost;Port=5455;Username=postgres;Password=postgres;Database=holidaymaker;";
 
         await using var db = NpgsqlDataSource.Create(dbUri);
 
         string[] customerArray = File.ReadAllLines("CUSTOMERS_DATA.csv");
 
-        for(int i = 1; i < 100; i++){
+        for (int i = 1; i < 100; i++)
+        {
             string[] customerInfo = customerArray[i].Split(",");
             string firstName = customerInfo[1];
             string lastName = customerInfo[2];
@@ -135,7 +140,7 @@ class Script
             string phoneNumberString = customerInfo[4];
             phoneNumberString = phoneNumberString.Replace("-", "");
             string dateOfBirth = customerInfo[5];
-            
+
             Int64.TryParse(phoneNumberString, out long phoneNumberInt);
 
             var parsedDate = DateTime.Parse(dateOfBirth);
@@ -154,25 +159,67 @@ class Script
             (first_name, last_name, email, phone_number, date_of_birth) 
             VALUES ($1, $2, $3, $4, $5)";
 
-            await using (var cmd = db.CreateCommand(sqlcommand)) {
+            await using (var cmd = db.CreateCommand(sqlcommand))
+            {
                 cmd.Parameters.AddWithValue(firstName);
                 cmd.Parameters.AddWithValue(lastName);
                 cmd.Parameters.AddWithValue(customerEmail);
                 cmd.Parameters.AddWithValue(phoneNumberInt);
                 cmd.Parameters.AddWithValue(parsedDate);
                 await cmd.ExecuteNonQueryAsync();
-                
+
             }
 
             customerArray = File.ReadAllLines("HOTEL_DATA.csv");
-            
-            
-            
-            
-            
+
+            string[] hotelArray = File.ReadAllLines("HOTEL_DATA.csv");
+
+            for (int j = 1; j < 10; j++)
+            {
+                string[] hotelinfo = hotelArray[i].Split(",");
+
+
+                string hotelName = hotelinfo[1];
+                string hotelAddress = hotelinfo[2];
+                string hotelCity = hotelinfo[3];
+                string hotelCountry = hotelinfo[4];
+                string hotelBeach = hotelinfo[5];
+                string hotelCenter = hotelinfo[6];
+                string hotelRating = hotelinfo[7];
+
+                int.TryParse(hotelBeach, out int beachDistance);
+                int.TryParse(hotelCenter, out int centerDistance);
+                decimal.TryParse(hotelRating, out decimal hotelRatingDecimal);
+
+                var sqlcommand2 = @"INSERT INTO hotels (
+        name,
+        address, 
+        city, 
+        country, 
+        beach_distance, 
+        center_distance, 
+        rating) VALUES (
+$1, $2, $3, $4, $5, $6, $7)";
+
+                await using (var cmd = db.CreateCommand(sqlcommand2))
+                {
+                    cmd.Parameters.AddWithValue(hotelName);
+                    cmd.Parameters.AddWithValue(hotelAddress);
+                    cmd.Parameters.AddWithValue(hotelCity);
+                    cmd.Parameters.AddWithValue(hotelCountry);
+                    cmd.Parameters.AddWithValue(beachDistance);
+                    cmd.Parameters.AddWithValue(centerDistance);
+                    cmd.Parameters.AddWithValue(hotelRatingDecimal);
+                    await cmd.ExecuteNonQueryAsync();
+
+                }
+
+
+
+
+            }
+
 
         }
-        
-
     }
 }

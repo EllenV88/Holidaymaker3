@@ -1,15 +1,18 @@
 using Npgsql;
-namespace makedatabase;
+namespace Holidaymaker3;
 
 public class PopulateTables
 {
-    public static async Task PopulateDatabase()
+    private readonly NpgsqlDataSource _db;
+
+    public PopulateTables(NpgsqlDataSource db)
     {
+        _db = db;
+    }
 
-        string dbUri = "Host=localhost;Port=5455;Username=postgres;Password=postgres;Database=holidaymaker;";
-
-        await using var db = NpgsqlDataSource.Create(dbUri);
-
+    public async Task<string> PopulateDatabase()
+    {
+        
         string[] customerArray = File.ReadAllLines("CUSTOMERS_DATA.csv");
 
         for (int i = 1; i < 100; i++)
@@ -52,26 +55,28 @@ public class PopulateTables
             }
         }
 
-        string[] hotelArray = File.ReadAllLines("HOTEL_DATA.csv");
-
-        for (int i = 1; i < 10; i++)
         {
-            string[] hotelinfo = hotelArray[i].Split(",");
+
+            string[] hotelArray = File.ReadAllLines("HOTEL_DATA.csv");
+
+            for (int j = 1; j < 10; j++)
+            {
+                string[] hotelinfo = hotelArray[j].Split(",");
 
 
-            string hotelName = hotelinfo[1];
-            string hotelAddress = hotelinfo[2];
-            string hotelCity = hotelinfo[3];
-            string hotelCountry = hotelinfo[4];
-            string hotelBeach = hotelinfo[5];
-            string hotelCenter = hotelinfo[6];
-            string hotelRating = hotelinfo[7];
+                string hotelName = hotelinfo[1];
+                string hotelAddress = hotelinfo[2];
+                string hotelCity = hotelinfo[3];
+                string hotelCountry = hotelinfo[4];
+                string hotelBeach = hotelinfo[5];
+                string hotelCenter = hotelinfo[6];
+                string hotelRating = hotelinfo[7];
 
-            int.TryParse(hotelBeach, out int beachDistance);
-            int.TryParse(hotelCenter, out int centerDistance);
-            decimal.TryParse(hotelRating, out decimal hotelRatingDecimal);
+                int.TryParse(hotelBeach, out int beachDistance);
+                int.TryParse(hotelCenter, out int centerDistance);
+                decimal.TryParse(hotelRating, out decimal hotelRatingDecimal);
 
-            var sqlcommand2 = @"INSERT INTO hotels (
+                var sqlcommand2 = @"INSERT INTO hotels (
         name,
         address, 
         city, 
@@ -81,19 +86,24 @@ public class PopulateTables
         rating) VALUES (
 $1, $2, $3, $4, $5, $6, $7)";
 
-            await using (var cmd = db.CreateCommand(sqlcommand2))
-            {
-                cmd.Parameters.AddWithValue(hotelName);
-                cmd.Parameters.AddWithValue(hotelAddress);
-                cmd.Parameters.AddWithValue(hotelCity);
-                cmd.Parameters.AddWithValue(hotelCountry);
-                cmd.Parameters.AddWithValue(beachDistance);
-                cmd.Parameters.AddWithValue(centerDistance);
-                cmd.Parameters.AddWithValue(hotelRatingDecimal);
-                await cmd.ExecuteNonQueryAsync();
+                await using (var cmd = db.CreateCommand(sqlcommand2))
+                {
+                    cmd.Parameters.AddWithValue(hotelName);
+                    cmd.Parameters.AddWithValue(hotelAddress);
+                    cmd.Parameters.AddWithValue(hotelCity);
+                    cmd.Parameters.AddWithValue(hotelCountry);
+                    cmd.Parameters.AddWithValue(beachDistance);
+                    cmd.Parameters.AddWithValue(centerDistance);
+                    cmd.Parameters.AddWithValue(hotelRatingDecimal);
+                    await cmd.ExecuteNonQueryAsync();
 
+                }
             }
-
         }
+        return PopulateDatabase;
     }
 }
+
+
+
+

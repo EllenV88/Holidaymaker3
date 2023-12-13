@@ -164,6 +164,13 @@ class Script
                 
             }
 
+            customerArray = File.ReadAllLines("HOTEL_DATA.csv");
+            
+            
+            
+            
+            
+
         }
         
 

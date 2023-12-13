@@ -26,7 +26,7 @@ class Script
             first_name TEXT, 
             last_name TEXT, 
             email TEXT, 
-            number BIGINT, 
+            phone_number BIGINT, 
             date_of_birth DATE)"))
         {
            await cmd.ExecuteNonQueryAsync();
@@ -40,29 +40,80 @@ class Script
             country TEXT, 
             beach_distance NUMERIC, 
             center_distance NUMERIC, 
-            rating NUMERIC, 
-            restaurant BOOLEAN, 
-            pool BOOLEAN, 
-            evening_entertainment BOOLEAN, 
-            kids_club BOOLEAN,
-            price_extrabeds MONEY, 
-            price_halfboard_child MONEY, 
-            price_halfboard_adult MONEY, 
-            price_allinclusive_child MONEY, 
-            price_allinclusive_adult MONEY
+            rating NUMERIC
         )")) 
         {
             await cmd.ExecuteNonQueryAsync();
         }
 
-        await using (var cmd = db.CreateCommand(@"CREATE TABLE IF NOT EXISTS additions(
+        await using (var cmd = db.CreateCommand(@"CREATE TABLE IF NOT EXISTS anemities(
             id SERIAL PRIMARY KEY, 
-            number_of_extrabeds INT DEFAULT NULL CHECK (number_of_extrabeds <= 1), 
-            number_of_halfboard_child INT DEFAULT NULL, 
-            number_of_halfboard_adult INT DEFAULT NULL, 
-            number_of_allinclusive_child INT DEFAULT NULL, 
-            number_of_allinclusive_adult INT DEFAULT NULL
-            )")) 
+            label TEXT
+            )"))
+        {
+            await cmd.ExecuteNonQueryAsync();
+        }
+
+        await using (var cmd = db.CreateCommand(@"CREATE TABLE IF NOT EXISTS extras(
+            id SERIAL PRIMARY KEY, 
+            label TEXT
+            )"))
+        {
+            await cmd.ExecuteNonQueryAsync();
+        }
+
+        await using (var cmd = db.CreateCommand(@"CREATE TABLE IF NOT EXISTS rooms(
+            id SERIAL PRIMARY KEY, 
+            type TEXT
+            )"))
+        {
+            await cmd.ExecuteNonQueryAsync();
+        }
+
+        await using (var cmd = db.CreateCommand(@"CREATE TABLE IF NOT EXISTS bookings(
+            id SERIAL PRIMARY KEY, 
+            hotels_id INTEGER REFERENCES hotels(id),
+            rooms_id INTEGER REFERENCES rooms(id),
+            customers_id INTEGER REFERENCES customers(id),
+            children INTEGER,
+            adults INTEGER,
+            check_in_date DATE,
+            check_out_date DATE
+            )"))
+        {
+            await cmd.ExecuteNonQueryAsync();
+        }
+
+        await using (var cmd = db.CreateCommand(@"CREATE TABLE IF NOT EXISTS hotels_x_rooms(
+            hotels_id INTEGER REFERENCES hotels(id),
+            rooms_id INTEGER REFERENCES rooms(id),
+            price MONEY
+            )"))
+        {
+            await cmd.ExecuteNonQueryAsync();
+        }
+
+        await using (var cmd = db.CreateCommand(@"CREATE TABLE IF NOT EXISTS hotels_x_anemities(
+            hotels_id INTEGER REFERENCES hotels(id),
+            anemities_id INTEGER REFERENCES anemities(id)
+            )"))
+        {
+            await cmd.ExecuteNonQueryAsync();
+        }
+
+        await using (var cmd = db.CreateCommand(@"CREATE TABLE IF NOT EXISTS hotels_x_extras(
+            hotels_id INTEGER REFERENCES hotels(id),
+            extras_id INTEGER REFERENCES extras(id),
+            price MONEY
+            )"))
+        {
+            await cmd.ExecuteNonQueryAsync();
+        }
+
+        await using (var cmd = db.CreateCommand(@"CREATE TABLE IF NOT EXISTS bookings_x_extras(
+            bookings_id INTEGER REFERENCES bookings(id),
+            extras_id INTEGER REFERENCES extras(id)
+            )"))
         {
             await cmd.ExecuteNonQueryAsync();
         }
@@ -100,7 +151,7 @@ class Script
             */
 
             var sqlcommand = @"INSERT INTO customers 
-            (first_name, last_name, email, number, date_of_birth) 
+            (first_name, last_name, email, phone_number, date_of_birth) 
             VALUES ($1, $2, $3, $4, $5)";
 
             await using (var cmd = db.CreateCommand(sqlcommand)) {

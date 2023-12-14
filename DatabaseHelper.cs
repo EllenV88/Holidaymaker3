@@ -43,6 +43,31 @@ public class DatabaseHelper
             Console.WriteLine("phone number: " + phoneNumberString + " " + phoneNumberInt);
             Console.WriteLine("date of birth: " +  dateOfBirth);
             */
+
+            public async Task PopulateCustomersTable()
+            {
+
+                var sqlcommand = @"INSERT INTO customers(
+        first_name, 
+        last_name, 
+        email, 
+        phone_number, 
+        date_of_birth
+        ) 
+        VALUES ($1, $2, $3, $4, $5)";
+
+                await using (var cmd = _db.CreateCommand(sqlcommand))
+                {
+                    cmd.Parameters.AddWithValue(firstname);
+                    cmd.Parameters.AddWithValue(2);
+                    cmd.Parameters.AddWithValue(3);
+                    cmd.Parameters.AddWithValue(4);
+                    cmd.Parameters.AddWithValue(5);
+                    await cmd.ExecuteNonQueryAsync();
+                }
+
+            }
+
         }
     }
 
@@ -66,28 +91,6 @@ public class DatabaseHelper
         }
     }
 
-    public async Task PopulateCustomersTable()
-    {
-        var sqlcommand = @"INSERT INTO customers(
-        first_name, 
-        last_name, 
-        email, 
-        phone_number, 
-        date_of_birth
-        ) 
-        VALUES ($1, $2, $3, $4, $5)";
-
-        await using (var cmd = _db.CreateCommand(sqlcommand))
-        {
-            cmd.Parameters.AddWithValue(1);
-            cmd.Parameters.AddWithValue(2);
-            cmd.Parameters.AddWithValue(3);
-            cmd.Parameters.AddWithValue(4);
-            cmd.Parameters.AddWithValue(5);
-            await cmd.ExecuteNonQueryAsync();
-        }
-
-    }
 
     public async Task PopulateHotelsTable()
     {

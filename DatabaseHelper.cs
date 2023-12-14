@@ -8,7 +8,7 @@ namespace Holidaymaker3;
 public class DatabaseHelper
 {
 
-    string[] hotelArray = File.ReadAllLines("C:\\Users\\pauli\\source\\repos\\Holidaymaker3\\DATA\\CUSTOMERS_DATA.csv");
+    string[] hotelArray = File.ReadAllLines("../../../DATA/CUSTOMERS_DATA.csv");
 
     private readonly NpgsqlDataSource _db;
     public DatabaseHelper(NpgsqlDataSource db)
@@ -16,27 +16,6 @@ public class DatabaseHelper
         _db = db;
     }
 
- 
-
-    public void HotelsConvertFromCSV()
-    {
-        for (int i = 1; i < 10; i++)
-        {
-            string[] hotelinfo = hotelArray[i].Split(",");
-
-            string hotelName = hotelinfo[1];
-            string hotelAddress = hotelinfo[2];
-            string hotelCity = hotelinfo[3];
-            string hotelCountry = hotelinfo[4];
-            string hotelBeach = hotelinfo[5];
-            string hotelCenter = hotelinfo[6];
-            string hotelRating = hotelinfo[7];
-
-            int.TryParse(hotelBeach, out int beachDistance);
-            int.TryParse(hotelCenter, out int centerDistance);
-            decimal.TryParse(hotelRating, out decimal hotelRatingDecimal);
-        }
-    }
 
     public async Task PopulateCustomersTable()
     {
@@ -71,7 +50,7 @@ public class DatabaseHelper
 
     public async Task PopulateHotelsTable()
     {
-        var sqlcommand2 = @"INSERT INTO hotels(
+        const string query = @"INSERT INTO hotels(
         name,
         address, 
         city, 
@@ -83,16 +62,24 @@ public class DatabaseHelper
         VALUES ($1, $2, $3, $4, $5, $6, $7)"
         ;
 
-        await using (var cmd = _db.CreateCommand(sqlcommand2))
+        string[] hotelArray = File.ReadAllLines("../../../DATA/HOTEL_DATA.csv");
+
+        for (int i = 1; i < 10; i++)
         {
-            cmd.Parameters.AddWithValue(1);
-            cmd.Parameters.AddWithValue(2);
-            cmd.Parameters.AddWithValue(3);
-            cmd.Parameters.AddWithValue(4);
-            cmd.Parameters.AddWithValue(5);
-            cmd.Parameters.AddWithValue(6);
-            cmd.Parameters.AddWithValue(7);
-            await cmd.ExecuteNonQueryAsync();
+            string[] hotelInfo = hotelArray[i].Split(",");
+
+            await using (var cmd = _db.CreateCommand(query))
+            {
+                cmd.Parameters.AddWithValue(hotelInfo[1]);
+                cmd.Parameters.AddWithValue(hotelInfo[2]);
+                cmd.Parameters.AddWithValue(hotelInfo[3]);
+                cmd.Parameters.AddWithValue(hotelInfo[4]);
+                cmd.Parameters.AddWithValue(int.Parse(hotelInfo[5]));
+                cmd.Parameters.AddWithValue(int.Parse(hotelInfo[6]));
+                cmd.Parameters.AddWithValue(decimal.Parse(hotelInfo[7].Replace('.',',')));
+
+                await cmd.ExecuteNonQueryAsync();
+            }
         }
     }
 }

@@ -27,7 +27,7 @@ public class DatabaseCreator
         first_name TEXT, 
         last_name TEXT, 
         email TEXT, 
-        phone_number BIGINT, 
+        phone_number TEXT, 
         date_of_birth DATE
         )";
         await _db.CreateCommand(customersTable).ExecuteNonQueryAsync();

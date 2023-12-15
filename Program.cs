@@ -12,6 +12,10 @@ await databaseCreator.CreateTables();
 var databasehelper = new DatabaseHelper(db);
 await databasehelper.PopulateCustomersTable();
 await databasehelper.PopulateHotelsTable();
+await databasehelper.PopulateRoomsTable();
+await databasehelper.PopulateHotelxRooms();
+await databasehelper.PopulateAmenityTable();
+await databasehelper.PopulateExtraTable();
 
 //#region CreateDatabaseMenu
 //Console.Clear();

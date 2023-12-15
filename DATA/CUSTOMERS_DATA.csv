@@ -1,4 +1,4 @@
-id,first_name,last_name,email,phone,date_of_birth
+customer_id,first_name,last_name,email,phone,date_of_birth
 1,Webb,Oggers,woggers0@imageshack.us,928-508-0943,1947-06-24
 2,Ignace,Kesley,ikesley1@amazon.co.jp,171-307-6210,1951-03-04
 3,Shayne,Clements,sclements2@discuz.net,508-556-6649,1985-10-20

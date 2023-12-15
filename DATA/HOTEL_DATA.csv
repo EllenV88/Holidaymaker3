@@ -1,11 +1,11 @@
-id,name,address,city,country,beach_distance,center_distance,rating
+hotel_id,name,address,city,country,beach_distance,center_distance,rating
 1,Waldorf Astoria,9 Portage Road,Barcelona,Spain,115,469,3.9
-2,Conrad Hotels & Resorts,4755 Browning Lane,Malaga,Spain,746,468,3.8
-3,Rev,3351 Kim Terrace,Dubai,United Arab Emirates,428,530,1.3
-4,Canopy,7171 4th Court,Okinawa,Japan,557,950,2.0
+2,Conrad Hotels & Resorts,4755 Browning Lane,Malaga,Spain,746,468,4.8
+3,Rev,3351 Kim Terrace,Dubai,United Arab Emirates,428,530,4.3
+4,Canopy,7171 4th Court,Okinawa,Japan,557,950,4.5
 5,Curio,767 Paget Circle,Miami,United States,227,349,4.9
-6,Embassy Suites,08079 Valley Edge Junction,Santa Barbara,United States,494,785,2.3
+6,Embassy Suites,08079 Valley Edge Junction,Santa Barbara,United States,494,785,4.3
 7,Garden Inn,090 4th Center,Hanoi,Vietnam,647,295,4.2
-8,Hampton,2 Stuart Alley,Phuket,Thailand,144,440,1.6
-9,Homewood Suites,9 Sunnyside Park,Naples,Italy,129,657,1.7
-10,Waldorf Astoria,9 Portage Road,Venice,Italy,361,721,1.8
+8,Hampton,2 Stuart Alley,Phuket,Thailand,144,440,3.6
+9,Homewood Suites,9 Sunnyside Park,Naples,Italy,129,657,4.7
+10,Waldorf Astoria,9 Portage Road,Venice,Italy,361,721,3.8

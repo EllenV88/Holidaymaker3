@@ -82,4 +82,73 @@ public class DatabaseHelper
             }
         }
     }
+
+    public async Task PopulateAnemityTable()
+    {
+        const string query = @"INSERT INTO anemities(
+        label
+        ) 
+        VALUES ($1)"
+        ;
+
+        string[] anemityArray = File.ReadAllLines("../../../DATA/ANEMITY_DATA.csv");
+
+        for (int i = 1; i < 10; i++)
+        {
+            string[] anemityInfo = anemityArray[i].Split(",");
+
+            await using (var cmd = _db.CreateCommand(query))
+            {
+                cmd.Parameters.AddWithValue(anemityInfo[1]);
+
+                await cmd.ExecuteNonQueryAsync();
+            }
+        }
+    }
+
+    public async Task PopulateExtraTable()
+    {
+        const string query = @"INSERT INTO extras(
+        label
+        ) 
+        VALUES ($1)"
+        ;
+
+        string[] extraArray = File.ReadAllLines("../../../DATA/EXTRA_DATA.csv");
+
+        for (int i = 1; i < 10; i++)
+        {
+            string[] extraInfo = extraArray[i].Split(",");
+
+            await using (var cmd = _db.CreateCommand(query))
+            {
+                cmd.Parameters.AddWithValue(extraInfo[1]);
+
+                await cmd.ExecuteNonQueryAsync();
+            }
+        }
+    }
+
+    public async Task PopulateRoomTable()
+    {
+        const string query = @"INSERT INTO rooms(
+        type
+        ) 
+        VALUES ($1)"
+        ;
+
+        string[] roomArray = File.ReadAllLines("../../../DATA/ROOM_DATA.csv");
+
+        for (int i = 1; i < 10; i++)
+        {
+            string[] roomInfo = roomArray[i].Split(",");
+
+            await using (var cmd = _db.CreateCommand(query))
+            {
+                cmd.Parameters.AddWithValue(roomInfo[1]);
+
+                await cmd.ExecuteNonQueryAsync();
+            }
+        }
+    }
 }

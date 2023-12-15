@@ -151,4 +151,31 @@ public class DatabaseHelper
             }
         }
     }
+
+    public async Task PopulateHotelxRooms()
+    {
+        const string query = @"INSERT INTO hotels_x_rooms(
+        hotel_id, 
+        room_id, 
+        price
+        ) 
+        VALUES ($1, $2, $3)"
+        ;
+
+        string[] hotelxRoomArray = File.ReadAllLines("../../../DATA/HOTELxROOMS_DATA.csv");
+
+        for (int i = 1; i < 10; i++)
+        {
+            string[] hotelxRoomInfo = hotelxRoomArray[i].Split(",");
+
+            await using (var cmd = _db.CreateCommand(query))
+            {
+                cmd.Parameters.AddWithValue(int.Parse(hotelxRoomInfo[1]));
+                cmd.Parameters.AddWithValue(int.Parse(hotelxRoomInfo[2]));
+                cmd.Parameters.AddWithValue(int.Parse(hotelxRoomInfo[3]));
+
+                await cmd.ExecuteNonQueryAsync();
+            }
+        }
+    }
 }

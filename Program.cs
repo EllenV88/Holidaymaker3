@@ -19,6 +19,10 @@ await databasehelper.PopulateExtraTable();
 await databasehelper.PopulateHotelsxAmenities();
 await databasehelper.PopulateHotelsxExtras();
 
+SearchPage searchPage = new(db);
+
+Console.WriteLine(await searchPage.AllPlacesByHotels());
+
 //#region CreateDatabaseMenu
 //Console.Clear();
 //Console.WriteLine("do you want to create the database?");

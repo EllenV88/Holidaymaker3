@@ -13,6 +13,10 @@ var databasehelper = new DatabaseHelper(db);
 await databasehelper.PopulateCustomersTable();
 await databasehelper.PopulateHotelsTable();
 
+//var bookingfunction = new BookingFunction(db);
+//await bookingfunction.NewBooking();
+
+
 //#region CreateDatabaseMenu
 //Console.Clear();
 //Console.WriteLine("do you want to create the database?");

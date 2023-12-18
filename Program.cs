@@ -13,6 +13,7 @@ var databasehelper = new DatabaseHelper(db);
 await databasehelper.PopulateCustomersTable();
 await databasehelper.PopulateHotelsTable();
 await databasehelper.PopulateRoomsTable();
+await databasehelper.PopulateBookingsTable();
 await databasehelper.PopulateHotelxRooms();
 await databasehelper.PopulateAmenityTable();
 await databasehelper.PopulateExtraTable();

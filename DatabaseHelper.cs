@@ -159,6 +159,38 @@ public class DatabaseHelper
         }
     }
 
+    public async Task PopulateBookingsTable()
+    {
+        const string query = @"INSERT INTO bookings(
+        booking_id, 
+        children,
+        adults,
+        check_in_date,
+        check_out_date
+        ) 
+        VALUES ($1, $2, $3, $4, $5)";
+
+        string[] bookingArray = File.ReadAllLines("../../../DATA/BOOKINGS_DATA.csv");
+
+        for (int i = 1; i < bookingArray.Length; i++)
+        {
+            string[] bookingInfo = bookingArray[i].Split(",");
+            //TODO change phone_number type from long to string because thats what they are
+
+            await using (var cmd = _db.CreateCommand(query))
+            {
+                cmd.Parameters.AddWithValue(int.Parse(bookingInfo[0]));
+                cmd.Parameters.AddWithValue(int.Parse(bookingInfo[1]));
+                cmd.Parameters.AddWithValue(int.Parse(bookingInfo[2]));
+                cmd.Parameters.AddWithValue(DateTime.Parse(bookingInfo[3]));
+                cmd.Parameters.AddWithValue(DateTime.Parse(bookingInfo[4]));
+
+                await cmd.ExecuteNonQueryAsync();
+            }
+        }
+
+    }
+
     public async Task PopulateHotelxRooms()
     {
         const string query = @"INSERT INTO hotels_x_rooms(
@@ -187,7 +219,7 @@ public class DatabaseHelper
 
     }
 
-     public async Task PopulateHotelsxExtras()
+    public async Task PopulateHotelsxExtras()
         {
             const string query = @"INSERT INTO hotels_x_extras(
         hotel_id, 
@@ -213,7 +245,6 @@ public class DatabaseHelper
                 }
             }
         }
-
 
     public async Task PopulateHotelsxAmenities()
     {

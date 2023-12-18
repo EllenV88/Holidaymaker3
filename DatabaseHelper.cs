@@ -1,4 +1,5 @@
 using Npgsql;
+using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Net;
 using System.Xml.Linq;
@@ -24,7 +25,13 @@ public class DatabaseHelper
         date_of_birth,
         customer_id
         ) 
-        VALUES ($1, $2, $3, $4, $5, $6)";
+        VALUES ($1, $2, $3, $4, $5, $6)
+        ON CONFLICT (customer_id) DO UPDATE SET
+        first_name = EXCLUDED.first_name,
+        last_name = EXCLUDED.last_name,
+        email = EXCLUDED.email,
+        phone_number = EXCLUDED.phone_number,
+        date_of_birth = EXCLUDED.date_of_birth;";
 
         string[] customerArray = File.ReadAllLines("../../../DATA/CUSTOMERS_DATA.csv");
 
@@ -59,7 +66,15 @@ public class DatabaseHelper
         rating,
         hotel_id
         ) 
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)"
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+        ON CONFLICT(hotel_id) DO UPDATE SET
+        name = EXCLUDED.name,
+        address = EXCLUDED.address,
+        city = EXCLUDED.city,
+        country = EXCLUDED.country,
+        beach_distance = EXCLUDED.beach_distance,
+        center_distance = EXCLUDED.center_distance,
+        rating = EXCLUDED.rating;" 
         ;
 
         string[] hotelArray = File.ReadAllLines("../../../DATA/HOTEL_DATA.csv");
@@ -90,7 +105,9 @@ public class DatabaseHelper
         label,
         amenity_id
         ) 
-        VALUES ($1, $2)"
+        VALUES ($1, $2)
+        ON CONFLICT(amenity_id) DO UPDATE SET
+        label = EXCLUDED.label"
         ;
 
         string[] amenityArray = File.ReadAllLines("../../../DATA/AMENITY_DATA.csv");
@@ -115,7 +132,9 @@ public class DatabaseHelper
         label,
         extra_id
         ) 
-        VALUES ($1, $2)"
+        VALUES ($1, $2)
+        ON CONFLICT(extra_id) DO UPDATE SET
+        label = EXCLUDED.label"
         ;
 
         string[] extraArray = File.ReadAllLines("../../../DATA/EXTRA_DATA.csv");
@@ -140,7 +159,9 @@ public class DatabaseHelper
         type,
         room_id
         ) 
-        VALUES ($1, $2)"
+        VALUES ($1, $2)
+        ON CONFLICT(room_id) DO UPDATE SET
+        type = EXCLUDED.type"
         ;
 
         string[] roomsArray = File.ReadAllLines("../../../DATA/ROOMS_DATA.csv");
@@ -168,7 +189,13 @@ public class DatabaseHelper
         check_in_date,
         check_out_date
         ) 
-        VALUES ($1, $2, $3, $4, $5)";
+        VALUES ($1, $2, $3, $4, $5)
+        ON CONFLICT(booking_id) DO UPDATE SET
+        children = EXCLUDED.children,
+        adults = EXCLUDED.adults,
+        check_in_date = EXCLUDED.check_in_date,
+        check_out_date = EXCLUDED.check_out_date"
+        ;
 
         string[] bookingArray = File.ReadAllLines("../../../DATA/BOOKINGS_DATA.csv");
 

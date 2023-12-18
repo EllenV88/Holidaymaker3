@@ -17,6 +17,7 @@ await databasehelper.PopulateHotelxRooms();
 await databasehelper.PopulateAmenityTable();
 await databasehelper.PopulateExtraTable();
 await databasehelper.PopulateHotelsxAmenities();
+await databasehelper.PopulateHotelsxExtras();
 
 //#region CreateDatabaseMenu
 //Console.Clear();

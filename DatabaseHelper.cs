@@ -192,9 +192,9 @@ public class DatabaseHelper
     {
         const string query = @"INSERT INTO hotels_x_amenities(
         hotel_id, 
-        room_id
+        amenity_id
         ) 
-        VALUES ($1, $2, $3)"
+        VALUES ($1, $2)"
         ;
 
         string[] hotelxAmenityArray = File.ReadAllLines("../../../DATA/HOTELxAMENITY_DATA.csv");
@@ -204,12 +204,10 @@ public class DatabaseHelper
             string[] hotelxAmenityInfo = hotelxAmenityArray[i].Split(",");
             Console.WriteLine(hotelxAmenityInfo[0]);
             Console.WriteLine(hotelxAmenityInfo[1]);
-            Console.WriteLine(hotelxAmenityInfo[2]);
             await using (var cmd = _db.CreateCommand(query))
             {
                 cmd.Parameters.AddWithValue(int.Parse(hotelxAmenityInfo[0]));
                 cmd.Parameters.AddWithValue(int.Parse(hotelxAmenityInfo[1]));
-                cmd.Parameters.AddWithValue(decimal.Parse(hotelxAmenityInfo[2].Replace('.', ',')));
 
                 await cmd.ExecuteNonQueryAsync();
             }

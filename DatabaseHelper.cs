@@ -186,6 +186,7 @@ public class DatabaseHelper
         }
 
     }
+
      public async Task PopulateHotelsxExtras()
         {
             const string query = @"INSERT INTO hotels_x_extras(
@@ -212,4 +213,31 @@ public class DatabaseHelper
                 }
             }
         }
+
+
+    public async Task PopulateHotelsxAmenities()
+    {
+        const string query = @"INSERT INTO hotels_x_amenities(
+        hotel_id, 
+        amenity_id
+        ) 
+        VALUES ($1, $2)"
+        ;
+
+        string[] hotelxAmenityArray = File.ReadAllLines("../../../DATA/HOTELxAMENITY_DATA.csv");
+
+        for (int i = 1; i < hotelxAmenityArray.Length; i++)
+        {
+            string[] hotelxAmenityInfo = hotelxAmenityArray[i].Split(",");
+           
+            await using (var cmd = _db.CreateCommand(query))
+            {
+                cmd.Parameters.AddWithValue(int.Parse(hotelxAmenityInfo[0]));
+                cmd.Parameters.AddWithValue(int.Parse(hotelxAmenityInfo[1]));
+
+                await cmd.ExecuteNonQueryAsync();
+            }
+        }
+    }
+
 }

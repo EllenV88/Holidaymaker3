@@ -105,7 +105,7 @@ public class Menu
         // Saves to SQL database
 
         const string query1 =
-           @" SELECT setval('customers_customer_id_seq', (SELECT MAX(100) FROM customers));";
+           @" SELECT setval('customers_customer_id_seq', (SELECT MAX(customer_id) FROM customers));";
 
         await using (var cmd = _db.CreateCommand(query1))
         {

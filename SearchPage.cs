@@ -35,13 +35,12 @@ namespace Holidaymaker3;
                 result += ", ";
                 result += reader.GetString(4);
                 result += ", ";
-                result += reader.GetString(5);
+                result += reader.GetInt32(5);
                 result += ", ";
-                result += reader.GetString(6);
+                result += reader.GetInt32(6);
                 result += ", ";
-                result += reader.GetString(7); //numeric issue
+                result += reader.GetInt32(7); //numeric issue
             }
-
             return result;
         }
     }

@@ -127,7 +127,7 @@ public class BookingFunction{
 
         string[] chosenExtras = chosenExtrasString.Split(", ");
         
-        await using var command = _db.CreateCommand("SELECT COUNT(booking_id) FROM bookings");
+        await using var command = _db.CreateCommand("SELECT booking_id  FROM bookings ORDER BY booking_id DESC LIMIT 1");
         await using var reader = await command.ExecuteReaderAsync();
 
         while (await reader.ReadAsync())

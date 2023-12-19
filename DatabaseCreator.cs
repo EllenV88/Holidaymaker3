@@ -75,12 +75,14 @@ public class DatabaseCreator
         await _db.CreateCommand(bookings).ExecuteNonQueryAsync();
 
         const string bookingsExtras = @"CREATE TABLE IF NOT EXISTS bookings_x_extras(
+        bookingxextra_id SERIAL PRIMARY KEY, 
         booking_id INTEGER REFERENCES bookings(booking_id),
         extra_id INTEGER REFERENCES extras(extra_id)
         )";
         await _db.CreateCommand(bookingsExtras).ExecuteNonQueryAsync();
 
         const string hotelsRooms = @"CREATE TABLE IF NOT EXISTS hotels_x_rooms(
+        hotelxroom_id SERIAL PRIMARY KEY, 
         hotel_id INTEGER REFERENCES hotels(hotel_id),
         room_id INTEGER REFERENCES rooms(room_id),
         price MONEY
@@ -88,12 +90,14 @@ public class DatabaseCreator
         await _db.CreateCommand(hotelsRooms).ExecuteNonQueryAsync();
 
         const string hotelAmenities = @"CREATE TABLE IF NOT EXISTS hotels_x_amenities(
+        hotelxamenity_id SERIAL PRIMARY KEY, 
         hotel_id INTEGER REFERENCES hotels(hotel_id),
         amenity_id INTEGER REFERENCES amenities(amenity_id)
         )";
         await _db.CreateCommand(hotelAmenities).ExecuteNonQueryAsync();
 
         const string hotelsExtras = @"CREATE TABLE IF NOT EXISTS hotels_x_extras(
+        hotelxextra_id SERIAL PRIMARY KEY, 
         hotel_id INTEGER REFERENCES hotels(hotel_id),
         extra_id INTEGER REFERENCES extras(extra_id),
         price MONEY

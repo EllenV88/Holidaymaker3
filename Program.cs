@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 const string dbUri = "Host=localhost;Port=5455;Username=postgres;Password=postgres;Database=holidaymaker;";
 await using var db = NpgsqlDataSource.Create(dbUri);
-
+/*
 var databaseCreator = new DatabaseCreator(db);
 //await databaseCreator.CreateDatabase();
 await databaseCreator.CreateTables();
@@ -12,7 +12,7 @@ await databaseCreator.CreateTables();
 var databasehelper = new DatabaseHelper(db);
 await databasehelper.PopulateCustomersTable();
 await databasehelper.PopulateHotelsTable();
-
+*/
 var bookingfunction = new BookingFunction(db);
 await bookingfunction.NewBooking();
 

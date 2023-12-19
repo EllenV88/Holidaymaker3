@@ -14,6 +14,7 @@ public class BookingFunction{
     }
 
     public async Task NewBooking(){
+        /*
         var insertBooking = @"INSERT INTO bookings(
             hotel_id, 
             room_id, 
@@ -103,7 +104,29 @@ public class BookingFunction{
 
                 await cmd.ExecuteNonQueryAsync();
             }
+            
+            */
+        
+        Console.WriteLine(@"what extras do you want
+1, Extra bed
+2, Half board child
+3, Half board adult
+4, All-inclusive child
+5, All-inclusive adult");
 
+        string chosenExtrasString = Console.ReadLine();
+        
+        Console.WriteLine(chosenExtrasString);
+
+        string[] chosenExtras = chosenExtrasString.Split(", ");
+
+        foreach (string c in chosenExtras)
+        {
+            if ("1" == c)
+            {
+                
+            }
+        }
     }
 
 }

@@ -64,26 +64,6 @@ public class DatabaseCreator
         )";
         await _db.CreateCommand(rooms).ExecuteNonQueryAsync();
 
-        const string bookings = @"CREATE TABLE IF NOT EXISTS bookings(
-        booking_id SERIAL PRIMARY KEY, 
-        hotel_id INTEGER REFERENCES hotels(hotel_id),
-        room_id INTEGER REFERENCES rooms(room_id),
-        hotelxroom_id INTEGER REFERENCES hotels_x_rooms(hotelxroom_id),
-        customer_id INTEGER REFERENCES customers(customer_id),
-        children INTEGER,
-        adults INTEGER,
-        check_in_date DATE,
-        check_out_date DATE
-        )";
-        await _db.CreateCommand(bookings).ExecuteNonQueryAsync();
-
-        const string bookingsExtras = @"CREATE TABLE IF NOT EXISTS bookings_x_extras(
-        bookingxextra_id SERIAL PRIMARY KEY, 
-        booking_id INTEGER REFERENCES bookings(booking_id),
-        extra_id INTEGER REFERENCES extras(extra_id)
-        )";
-        await _db.CreateCommand(bookingsExtras).ExecuteNonQueryAsync();
-
         const string hotelsRooms = @"CREATE TABLE IF NOT EXISTS hotels_x_rooms(
         hotelxroom_id SERIAL PRIMARY KEY, 
         hotel_id INTEGER REFERENCES hotels(hotel_id),
@@ -106,6 +86,26 @@ public class DatabaseCreator
         price MONEY
         )";
         await _db.CreateCommand(hotelsExtras).ExecuteNonQueryAsync();
+
+        const string bookings = @"CREATE TABLE IF NOT EXISTS bookings(
+        booking_id SERIAL PRIMARY KEY, 
+        hotel_id INTEGER REFERENCES hotels(hotel_id),
+        room_id INTEGER REFERENCES rooms(room_id),
+        hotelxroom_id INTEGER REFERENCES hotels_x_rooms(hotelxroom_id),
+        customer_id INTEGER REFERENCES customers(customer_id),
+        children INTEGER,
+        adults INTEGER,
+        check_in_date DATE,
+        check_out_date DATE
+        )";
+        await _db.CreateCommand(bookings).ExecuteNonQueryAsync();
+
+        const string bookingsExtras = @"CREATE TABLE IF NOT EXISTS bookings_x_extras(
+        bookingxextra_id SERIAL PRIMARY KEY, 
+        booking_id INTEGER REFERENCES bookings(booking_id),
+        extra_id INTEGER REFERENCES extras(extra_id)
+        )";
+        await _db.CreateCommand(bookingsExtras).ExecuteNonQueryAsync();
     }
 
 }

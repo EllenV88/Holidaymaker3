@@ -276,9 +276,9 @@ public class DatabaseHelper
             await using (var cmd = _db.CreateCommand(query))
             {
 
-                string[] hotelxExtraInfo = hotelxExtraArray[i].Split(",");
+                //string[] hotelxExtraInfo = hotelxExtraArray[i].Split(",");
                 
-                await using (var cmd = _db.CreateCommand(query))
+                //await using (var cmd = _db.CreateCommand(query))
                 {
                     cmd.Parameters.AddWithValue(int.Parse(hotelxExtraInfo[0]));
                     cmd.Parameters.AddWithValue(int.Parse(hotelxExtraInfo[1]));

@@ -23,6 +23,10 @@ await databasehelper.PopulateHotelsxExtras();
 var Menu = new Menu(db);
 Menu.MainMenu();
 
+//var bookingfunction = new BookingFunction(db);
+//await bookingfunction.NewBooking();
+
+
 //#region CreateDatabaseMenu
 //Console.Clear();
 //Console.WriteLine("do you want to create the database?");

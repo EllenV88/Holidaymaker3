@@ -1,0 +1,3 @@
+booking_id,children,adults,check_in_date,check_out_date
+10001,2,2,2022-06-03,2022-06-6
+10002,1,1,2022-07-02,2022-07-04

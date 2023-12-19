@@ -1,53 +1,47 @@
 ﻿using Npgsql;
+using Holidaymaker3;
+using System.Runtime.CompilerServices;
 
-string dbUri = "Host=localhost;Port=5455;Username=postgres;Password=postgres;Database=holidaymaker;";
-
+const string dbUri = "Host=localhost;Port=5455;Username=postgres;Password=postgres;Database=holidaymaker;";
 await using var db = NpgsqlDataSource.Create(dbUri);
 
-await using (var cmd = db.CreateCommand(@"CREATE TABLE IF NOT EXISTS hotels (
-id SERIAL PRIMARY KEY,
-name TEXT, 
-address TEXT, 
-city TEXT, 
-country TEXT, 
-beach_distance NUMERIC, 
-center_distance NUMERIC, 
-rating NUMERIC, 
-restaurant BOOLEAN, 
-pool BOOLEAN, 
-evening_entertainment BOOLEAN, 
-kids_club BOOLEAN,
-price_extrabeds MONEY, 
-price_halfboard_child MONEY, 
-price_halfboard_adult MONEY, 
-price_allinclusive_child MONEY, 
-price_allinclusive_adult MONEY
-)"))
+var databaseCreator = new DatabaseCreator(db);
+//await databaseCreator.CreateDatabase();
+await databaseCreator.CreateTables();
 
-{
-    await cmd.ExecuteNonQueryAsync();
-}
+var databasehelper = new DatabaseHelper(db);
+await databasehelper.PopulateCustomersTable();
+await databasehelper.PopulateHotelsTable();
+await databasehelper.PopulateRoomsTable();
+await databasehelper.PopulateBookingsTable();
+await databasehelper.PopulateHotelxRooms();
+await databasehelper.PopulateAmenityTable();
+await databasehelper.PopulateExtraTable();
+await databasehelper.PopulateHotelsxAmenities();
+await databasehelper.PopulateHotelsxExtras();
 
-await using (var cmd = db.CreateCommand(@"CREATE TABLE IF NOT EXISTS additions(
-id SERIAL PRIMARY KEY, 
-number_of_extrabeds INT DEFAULT NULL CHECK (number_of_extrabeds <= 1), 
-number_of_halfboard_child INT DEFAULT NULL, 
-number_of_halfboard_adult INT DEFAULT NULL, 
-number_of_allinclusive_child INT DEFAULT NULL, 
-number_of_allinclusive_adult INT DEFAULT NULL
-)"))
+var Menu = new Menu(db);
+Menu.MainMenu();
 
-{
-    await cmd.ExecuteNonQueryAsync();
-}
+//#region CreateDatabaseMenu
+//Console.Clear();
+//Console.WriteLine("do you want to create the database?");
+//string userinput = Console.ReadLine();
+//if ("y" == userinput || "" == userinput){
+//    Console.WriteLine("testtest");
+//    await Script.CreateDatabase();
+//}
+//Console.WriteLine("do you want to create all the tables?");
+//userinput = Console.ReadLine();
+//if ("y" == userinput || "" == userinput){
+//    Console.WriteLine("testtest");
+//    await Script.MakeTables();
+//}
+//Console.WriteLine("do you want to populate the database");
+//userinput = Console.ReadLine();
+//if ("y" == userinput || "" == userinput){
+//    Console.WriteLine("testtest");
+//await Script.MakeTables();
+//}
+//#endregion
 
-await using (var cmd = db.CreateCommand(@"CREATE TABLE IF NOT EXISTS rooms(
-id SERIAL PRIMARY KEY, 
-type TEXT, 
-hotel_id INT,
-price MONEY
-)"))
-
-{
-    await cmd.ExecuteNonQueryAsync();
-}

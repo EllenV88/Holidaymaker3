@@ -12,9 +12,21 @@ await databaseCreator.CreateTables();
 var databasehelper = new DatabaseHelper(db);
 await databasehelper.PopulateCustomersTable();
 await databasehelper.PopulateHotelsTable();
-*/
-var bookingfunction = new BookingFunction(db);
-await bookingfunction.NewBooking();
+
+await databasehelper.PopulateRoomsTable();
+await databasehelper.PopulateBookingsTable();
+await databasehelper.PopulateHotelxRooms();
+await databasehelper.PopulateAmenityTable();
+await databasehelper.PopulateExtraTable();
+await databasehelper.PopulateHotelsxAmenities();
+await databasehelper.PopulateHotelsxExtras();
+
+var Menu = new Menu(db);
+Menu.MainMenu();
+
+//var bookingfunction = new BookingFunction(db);
+//await bookingfunction.NewBooking();
+
 
 
 //#region CreateDatabaseMenu

@@ -44,11 +44,11 @@ public class DatabaseCreator
         )";
         await _db.CreateCommand(hotelsTable).ExecuteNonQueryAsync();
 
-        const string anemities = @"CREATE TABLE IF NOT EXISTS anemities(
-        anemity_id SERIAL PRIMARY KEY, 
+        const string amenities = @"CREATE TABLE IF NOT EXISTS amenities(
+        amenity_id SERIAL PRIMARY KEY, 
         label TEXT
         )";
-        await _db.CreateCommand(anemities).ExecuteNonQueryAsync();
+        await _db.CreateCommand(amenities).ExecuteNonQueryAsync();
 
         const string extras = @"CREATE TABLE IF NOT EXISTS extras(
         extra_id SERIAL PRIMARY KEY, 
@@ -64,9 +64,9 @@ public class DatabaseCreator
 
         const string bookings = @"CREATE TABLE IF NOT EXISTS bookings(
         booking_id SERIAL PRIMARY KEY, 
-        hotels_id INTEGER REFERENCES hotels(hotel_id),
-        rooms_id INTEGER REFERENCES rooms(room_id),
-        customers_id INTEGER REFERENCES customers(customer_id),
+        hotel_id INTEGER REFERENCES hotels(hotel_id),
+        room_id INTEGER REFERENCES rooms(room_id),
+        customer_id INTEGER REFERENCES customers(customer_id),
         children INTEGER,
         adults INTEGER,
         check_in_date DATE,
@@ -75,27 +75,27 @@ public class DatabaseCreator
         await _db.CreateCommand(bookings).ExecuteNonQueryAsync();
 
         const string bookingsExtras = @"CREATE TABLE IF NOT EXISTS bookings_x_extras(
-        bookings_id INTEGER REFERENCES bookings(booking_id),
-        extras_id INTEGER REFERENCES extras(extra_id)
+        booking_id INTEGER REFERENCES bookings(booking_id),
+        extra_id INTEGER REFERENCES extras(extra_id)
         )";
         await _db.CreateCommand(bookingsExtras).ExecuteNonQueryAsync();
 
         const string hotelsRooms = @"CREATE TABLE IF NOT EXISTS hotels_x_rooms(
-        hotels_id INTEGER REFERENCES hotels(hotel_id),
-        rooms_id INTEGER REFERENCES rooms(room_id),
+        hotel_id INTEGER REFERENCES hotels(hotel_id),
+        room_id INTEGER REFERENCES rooms(room_id),
         price MONEY
         )";
         await _db.CreateCommand(hotelsRooms).ExecuteNonQueryAsync();
 
-        const string hotelAnemitites = @"CREATE TABLE IF NOT EXISTS hotels_x_anemities(
-        hotels_id INTEGER REFERENCES hotels(hotel_id),
-        anemities_id INTEGER REFERENCES anemities(anemity_id)
+        const string hotelAmenities = @"CREATE TABLE IF NOT EXISTS hotels_x_amenities(
+        hotel_id INTEGER REFERENCES hotels(hotel_id),
+        amenity_id INTEGER REFERENCES amenities(amenity_id)
         )";
-        await _db.CreateCommand(hotelAnemitites).ExecuteNonQueryAsync();
+        await _db.CreateCommand(hotelAmenities).ExecuteNonQueryAsync();
 
         const string hotelsExtras = @"CREATE TABLE IF NOT EXISTS hotels_x_extras(
-        hotels_id INTEGER REFERENCES hotels(hotel_id),
-        extras_id INTEGER REFERENCES extras(extra_id),
+        hotel_id INTEGER REFERENCES hotels(hotel_id),
+        extra_id INTEGER REFERENCES extras(extra_id),
         price MONEY
         )";
         await _db.CreateCommand(hotelsExtras).ExecuteNonQueryAsync();

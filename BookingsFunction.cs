@@ -15,9 +15,9 @@ public class BookingFunction{
 
     public async Task NewBooking(){
         var insertBooking = @"INSERT INTO bookings(
-            hotels_id, 
-            rooms_id, 
-            customers_id, 
+            hotel_id, 
+            room_id, 
+            customer_id, 
             children, 
             adults, 
             check_in_date, 

@@ -27,13 +27,13 @@ if(Console.ReadLine()?.ToLower() == "y")
 
 
 SearchPage searchPage = new(db);
-Console.WriteLine("Please enter a city: "); //casesensitive
-string city = Console.ReadLine() ?? string.Empty;
-Console.WriteLine(await searchPage.HotelsByCity(city));
-Console.ReadLine();
+
 
 var Menu = new Menu(db);
-Menu.MainMenu();
+await Menu.MainMenu();
+
+var bookingfunction = new BookingFunction(db);
+await bookingfunction.NewBooking();
 
 //var bookingfunction = new BookingFunction(db);
 //await bookingfunction.NewBooking();

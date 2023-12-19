@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 const string dbUri = "Host=localhost;Port=5455;Username=postgres;Password=postgres;Database=holidaymaker;";
 await using var db = NpgsqlDataSource.Create(dbUri);
-/*
+
 var databaseCreator = new DatabaseCreator(db);
 //await databaseCreator.CreateDatabase();
 
@@ -22,16 +22,15 @@ if(Console.ReadLine()?.ToLower() == "y")
     await databasehelper.PopulateExtraTable();
     await databasehelper.PopulateHotelsxAmenities();
     await databasehelper.PopulateHotelsxExtras();
-    Console.WriteLine("Done populating tables");
+    Console.WriteLine("Done populating tables.\n");
 }
 
 
 SearchPage searchPage = new(db);
-Console.WriteLine("Please enter a city");
+Console.WriteLine("Please enter a city: "); //casesensitive
 string city = Console.ReadLine() ?? string.Empty;
-Console.WriteLine("");
 Console.WriteLine(await searchPage.HotelsByCity(city));
-//Console.WriteLine(await searchPage.AllInfoByHotels());
+Console.ReadLine();
 
 var Menu = new Menu(db);
 Menu.MainMenu();

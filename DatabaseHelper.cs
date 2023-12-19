@@ -17,7 +17,7 @@ public class DatabaseHelper
 
     public async Task ResetTables()
     {
-        Console.WriteLine("Resetting tables");
+        Console.WriteLine("Resetting tables...\n");
         const string query = "drop schema public cascade; create schema public;";
         await _db.CreateCommand(query).ExecuteNonQueryAsync();
     }

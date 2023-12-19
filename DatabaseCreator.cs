@@ -22,6 +22,8 @@ public class DatabaseCreator
 
     public async Task CreateTables()
     {
+
+        Console.WriteLine("Creating tables");
         const string customersTable = @"CREATE TABLE IF NOT EXISTS customers(
         customer_id SERIAL PRIMARY KEY, 
         first_name TEXT, 

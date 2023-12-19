@@ -7,21 +7,31 @@ await using var db = NpgsqlDataSource.Create(dbUri);
 
 var databaseCreator = new DatabaseCreator(db);
 //await databaseCreator.CreateDatabase();
-await databaseCreator.CreateTables();
 
 var databasehelper = new DatabaseHelper(db);
-await databasehelper.PopulateCustomersTable();
-await databasehelper.PopulateHotelsTable();
-await databasehelper.PopulateRoomsTable();
-await databasehelper.PopulateHotelxRooms();
-await databasehelper.PopulateAmenityTable();
-await databasehelper.PopulateExtraTable();
-await databasehelper.PopulateHotelsxAmenities();
-await databasehelper.PopulateHotelsxExtras();
+Console.WriteLine("Would you like to reset the database? y/N");
+if(Console.ReadLine()?.ToLower() == "y")
+{
+    await databasehelper.ResetTables();
+    await databaseCreator.CreateTables();
+    await databasehelper.PopulateCustomersTable();
+    await databasehelper.PopulateHotelsTable();
+    await databasehelper.PopulateRoomsTable();
+    await databasehelper.PopulateHotelxRooms();
+    await databasehelper.PopulateAmenityTable();
+    await databasehelper.PopulateExtraTable();
+    await databasehelper.PopulateHotelsxAmenities();
+    await databasehelper.PopulateHotelsxExtras();
+    Console.WriteLine("Done populating tables");
+}
+
 
 SearchPage searchPage = new(db);
-
-Console.WriteLine(await searchPage.AllPlacesByHotels());
+Console.WriteLine("Please enter a city");
+string city = Console.ReadLine() ?? string.Empty;
+Console.WriteLine("");
+Console.WriteLine(await searchPage.HotelsByCity(city));
+//Console.WriteLine(await searchPage.AllInfoByHotels());
 
 //#region CreateDatabaseMenu
 //Console.Clear();

@@ -4,22 +4,33 @@ using System.Runtime.CompilerServices;
 
 const string dbUri = "Host=localhost;Port=5455;Username=postgres;Password=postgres;Database=holidaymaker;";
 await using var db = NpgsqlDataSource.Create(dbUri);
-/*
+
 var databaseCreator = new DatabaseCreator(db);
 //await databaseCreator.CreateDatabase();
-await databaseCreator.CreateTables();
 
 var databasehelper = new DatabaseHelper(db);
-await databasehelper.PopulateCustomersTable();
-await databasehelper.PopulateHotelsTable();
+Console.WriteLine("Would you like to reset the database? y/N");
+if(Console.ReadLine()?.ToLower() == "y")
+{
+    await databasehelper.ResetTables();
+    await databaseCreator.CreateTables();
+    await databasehelper.PopulateCustomersTable();
+    await databasehelper.PopulateHotelsTable();
+    await databasehelper.PopulateRoomsTable();
+    await databasehelper.PopulateHotelxRooms();
+    await databasehelper.PopulateAmenityTable();
+    await databasehelper.PopulateExtraTable();
+    await databasehelper.PopulateHotelsxAmenities();
+    await databasehelper.PopulateHotelsxExtras();
+    Console.WriteLine("Done populating tables.\n");
+}
 
-await databasehelper.PopulateRoomsTable();
-await databasehelper.PopulateBookingsTable();
-await databasehelper.PopulateHotelxRooms();
-await databasehelper.PopulateAmenityTable();
-await databasehelper.PopulateExtraTable();
-await databasehelper.PopulateHotelsxAmenities();
-await databasehelper.PopulateHotelsxExtras();
+
+SearchPage searchPage = new(db);
+Console.WriteLine("Please enter a city: "); //casesensitive
+string city = Console.ReadLine() ?? string.Empty;
+Console.WriteLine(await searchPage.HotelsByCity(city));
+Console.ReadLine();
 
 var Menu = new Menu(db);
 Menu.MainMenu();

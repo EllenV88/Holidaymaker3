@@ -20,6 +20,9 @@ await databasehelper.PopulateExtraTable();
 await databasehelper.PopulateHotelsxAmenities();
 await databasehelper.PopulateHotelsxExtras();
 
+var Menu = new Menu(db);
+Menu.MainMenu();
+
 //#region CreateDatabaseMenu
 //Console.Clear();
 //Console.WriteLine("do you want to create the database?");

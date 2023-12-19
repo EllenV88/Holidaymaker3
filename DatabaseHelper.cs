@@ -15,6 +15,12 @@ public class DatabaseHelper
         _db = db;
     }
 
+    public async Task ResetTables()
+    {
+        Console.WriteLine("Resetting tables...\n");
+        const string query = "drop schema public cascade; create schema public;";
+        await _db.CreateCommand(query).ExecuteNonQueryAsync();
+    }
     public async Task PopulateCustomersTable()
     {
         const string query = @"INSERT INTO customers(
@@ -91,7 +97,7 @@ public class DatabaseHelper
                 cmd.Parameters.AddWithValue(hotelInfo[4]);
                 cmd.Parameters.AddWithValue(int.Parse(hotelInfo[5]));
                 cmd.Parameters.AddWithValue(int.Parse(hotelInfo[6]));
-                cmd.Parameters.AddWithValue(decimal.Parse(hotelInfo[7].Replace('.',',')));
+                cmd.Parameters.AddWithValue(decimal.Parse(hotelInfo[7].Replace('.', ',')));
                 cmd.Parameters.AddWithValue(int.Parse(hotelInfo[0]));
 
                 await cmd.ExecuteNonQueryAsync();
@@ -234,7 +240,7 @@ public class DatabaseHelper
         for (int i = 1; i < hotelxRoomArray.Length; i++)
         {
             string[] hotelxRoomInfo = hotelxRoomArray[i].Split(",");
-            
+
             await using (var cmd = _db.CreateCommand(query))
             {
                 cmd.Parameters.AddWithValue(int.Parse(hotelxRoomInfo[0])); 
@@ -249,6 +255,7 @@ public class DatabaseHelper
     }
 
     public async Task PopulateHotelsxExtras()
+
         {
             const string query = @"INSERT INTO hotels_x_extras(
         hotelxextra_id,
@@ -256,13 +263,19 @@ public class DatabaseHelper
         extra_id, 
         price
         ) 
+
         VALUES ($1, $2, $3, $4)"
             ;
 
-            string[] hotelxExtraArray = File.ReadAllLines("../../../DATA/HOTELxEXTRA_DATA.csv");
+        string[] hotelxExtraArray = File.ReadAllLines("../../../DATA/HOTELxEXTRA_DATA.csv");
 
-            for (int i = 1; i < hotelxExtraArray.Length; i++)
+        for (int i = 1; i < hotelxExtraArray.Length; i++)
+        {
+            string[] hotelxExtraInfo = hotelxExtraArray[i].Split(",");
+
+            await using (var cmd = _db.CreateCommand(query))
             {
+
                 string[] hotelxExtraInfo = hotelxExtraArray[i].Split(",");
                 
                 await using (var cmd = _db.CreateCommand(query))
@@ -276,6 +289,7 @@ public class DatabaseHelper
                 }
             }
         }
+    }
 
     public async Task PopulateHotelsxAmenities()
     {
@@ -292,7 +306,7 @@ public class DatabaseHelper
         for (int i = 1; i < hotelxAmenityArray.Length; i++)
         {
             string[] hotelxAmenityInfo = hotelxAmenityArray[i].Split(",");
-           
+
             await using (var cmd = _db.CreateCommand(query))
             {
                 cmd.Parameters.AddWithValue(int.Parse(hotelxAmenityInfo[0]));

@@ -9,7 +9,7 @@ public class Menu
     {
         _db = db;
     }
-    public async void MainMenu()
+    public async Task MainMenu()
     {
         while (true)
         {
@@ -20,7 +20,6 @@ public class Menu
             Console.WriteLine("\n");
             Console.WriteLine("1 - Customers\n");
             Console.WriteLine("2 - Bookings\n");
-            Console.WriteLine("3 - Hotels and room availability\n");
             Console.WriteLine("0 - Exit\n");
 
             string choice = Console.ReadLine();
@@ -28,13 +27,10 @@ public class Menu
             switch (choice)
             {
                 case "1":
-                    CustomerMenu();
+                    await CustomerMenu();
                     break;
                 case "2":
-                    BookingsMenu();
-                    break;
-                case "3":
-                    HotelsAndRoomsMenu();
+                    await BookingsMenu();
                     break;
                 case "0":
                     return;
@@ -47,7 +43,7 @@ public class Menu
         }
     }
 
-    public async void CustomerMenu()
+    public async Task CustomerMenu()
     {
         while (true)
         {
@@ -64,10 +60,10 @@ public class Menu
             switch (choice)
             {
                 case "1":
-                    RegisterNewCustomer();
+                    await RegisterNewCustomer();
                     break;
                 case "2":
-                    ViewCustomerBookings();
+
                     break;
                 case "0":
                     return;
@@ -80,7 +76,7 @@ public class Menu
         }
     }
 
-    public async void RegisterNewCustomer()
+    public async Task RegisterNewCustomer()
     {
         Console.Clear();
         Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
@@ -88,10 +84,10 @@ public class Menu
         Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
         Console.Write("Enter first name: ");
-        string firstName = Console.ReadLine();
+        string firstName = Console.ReadLine() ?? string.Empty;
 
         Console.Write("Enter last name: ");
-        string lastName = Console.ReadLine();
+        string lastName = Console.ReadLine() ?? string.Empty;
 
         Console.Write("Enter email: ");
         string email = Console.ReadLine();
@@ -134,21 +130,72 @@ public class Menu
         Console.ReadKey();
     }
 
-    public async void ViewCustomerBookings()
+    public async Task BookingsMenu()
     {
-        // Implement logic to view customer bookings
-        Console.Clear();
-        Console.WriteLine("Viewing customer bookings\n");
-        Console.ReadKey();
+        while (true)
+        {
+            Console.Clear();
+            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+            Console.WriteLine("|      Bookings management!       |\n");
+            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+            Console.WriteLine("1 - Create new booking\n");
+            Console.WriteLine("0 - Go back\n");
+
+            string choice = Console.ReadLine();
+            SearchPage searchPage = new(_db);
+
+            switch (choice)
+            {
+                case "1":
+                    Console.WriteLine("\nPlease enter a city: "); //casesensitive
+                    string city = Console.ReadLine() ?? string.Empty;
+                    Console.WriteLine(await searchPage.HotelsByCity(city));
+                    Thread.Sleep(1000);
+                    var bookingfunction = new BookingFunction(_db);
+                    await bookingfunction.NewBooking();
+                    break;
+                case "0":
+                    return;
+                default:
+                    Console.Clear();
+                    Console.WriteLine("Pick something valid");
+                    Console.ReadKey();
+                    break;
+            }
+        }
     }
 
-    public async void BookingsMenu()
+    public async Task HotelsAndRoomsMenu()
     {
-        // Implement logic for the Bookings menu
-    }
+        while (true)
+        {
+            Console.Clear();
+            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+            Console.WriteLine("|       Our Hotels & Rooms!       |\n");
+            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+            Console.WriteLine("1 - Search Engine\n");
+            Console.WriteLine("0 - Go back\n");
 
-    public async void HotelsAndRoomsMenu()
-    {
-        // Implement logic for the Hotels and Rooms menu
+            string choice = Console.ReadLine();
+            SearchPage searchPage = new(_db);
+
+            switch (choice)
+            {
+
+                case "1":
+                    Console.WriteLine("\nPlease enter a city: "); //casesensitive
+                    string city = Console.ReadLine() ?? string.Empty;
+                    Console.WriteLine(await searchPage.HotelsByCity(city));
+                    Console.ReadLine();
+                    break;
+                case "0":
+                    return;
+                default:
+                    Console.Clear();
+                    Console.WriteLine("Pick something valid");
+                    Console.ReadKey();
+                    break;
+            }
+        }
     }
 }

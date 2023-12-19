@@ -32,6 +32,7 @@ public class BookingFunction{
         bool insertLoop = true;
         while(true == insertLoop){ //insert hotel id
             //potentiellt byta ut/importera från search page funktion
+            
             Console.WriteLine("please enter a hotel id: ");
             bool success = int.TryParse(Console.ReadLine(), out hotelID);
             if(true == success){

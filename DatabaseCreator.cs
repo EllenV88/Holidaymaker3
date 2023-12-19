@@ -68,6 +68,7 @@ public class DatabaseCreator
         booking_id SERIAL PRIMARY KEY, 
         hotel_id INTEGER REFERENCES hotels(hotel_id),
         room_id INTEGER REFERENCES rooms(room_id),
+        hotelxroom_id INTEGER REFERENCES hotels_x_rooms(hotelxroom_id),
         customer_id INTEGER REFERENCES customers(customer_id),
         children INTEGER,
         adults INTEGER,

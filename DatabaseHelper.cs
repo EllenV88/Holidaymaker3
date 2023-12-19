@@ -189,7 +189,7 @@ public class DatabaseHelper
     public async Task PopulateBookingsTable()
     {
         const string query = @"INSERT INTO bookings(
-        booking_id, 
+        booking_id,
         children,
         adults,
         check_in_date,
@@ -227,11 +227,12 @@ public class DatabaseHelper
     public async Task PopulateHotelxRooms()
     {
         const string query = @"INSERT INTO hotels_x_rooms(
+        hotelxroom_id,
         hotel_id, 
         room_id, 
         price
         ) 
-        VALUES ($1, $2, $3)"
+        VALUES ($1, $2, $3, $4)"
         ;
 
         string[] hotelxRoomArray = File.ReadAllLines("../../../DATA/HOTELxROOM_DATA.csv");
@@ -242,9 +243,10 @@ public class DatabaseHelper
 
             await using (var cmd = _db.CreateCommand(query))
             {
-                cmd.Parameters.AddWithValue(int.Parse(hotelxRoomInfo[0]));
+                cmd.Parameters.AddWithValue(int.Parse(hotelxRoomInfo[0])); 
                 cmd.Parameters.AddWithValue(int.Parse(hotelxRoomInfo[1]));
-                cmd.Parameters.AddWithValue(decimal.Parse(hotelxRoomInfo[2].Replace('.', ',')));
+                cmd.Parameters.AddWithValue(int.Parse(hotelxRoomInfo[2]));
+                cmd.Parameters.AddWithValue(decimal.Parse(hotelxRoomInfo[3].Replace('.', ',')));
 
                 await cmd.ExecuteNonQueryAsync();
             }
@@ -253,14 +255,17 @@ public class DatabaseHelper
     }
 
     public async Task PopulateHotelsxExtras()
-    {
-        const string query = @"INSERT INTO hotels_x_extras(
+
+        {
+            const string query = @"INSERT INTO hotels_x_extras(
+        hotelxextra_id,
         hotel_id, 
         extra_id, 
         price
         ) 
-        VALUES ($1, $2, $3)"
-        ;
+
+        VALUES ($1, $2, $3, $4)"
+            ;
 
         string[] hotelxExtraArray = File.ReadAllLines("../../../DATA/HOTELxEXTRA_DATA.csv");
 
@@ -270,11 +275,18 @@ public class DatabaseHelper
 
             await using (var cmd = _db.CreateCommand(query))
             {
-                cmd.Parameters.AddWithValue(int.Parse(hotelxExtraInfo[0]));
-                cmd.Parameters.AddWithValue(int.Parse(hotelxExtraInfo[1]));
-                cmd.Parameters.AddWithValue(decimal.Parse(hotelxExtraInfo[2].Replace('.', ',')));
 
-                await cmd.ExecuteNonQueryAsync();
+                string[] hotelxExtraInfo = hotelxExtraArray[i].Split(",");
+                
+                await using (var cmd = _db.CreateCommand(query))
+                {
+                    cmd.Parameters.AddWithValue(int.Parse(hotelxExtraInfo[0]));
+                    cmd.Parameters.AddWithValue(int.Parse(hotelxExtraInfo[1]));
+                    cmd.Parameters.AddWithValue(int.Parse(hotelxExtraInfo[2]));
+                    cmd.Parameters.AddWithValue(decimal.Parse(hotelxExtraInfo[3].Replace('.', ',')));
+
+                    await cmd.ExecuteNonQueryAsync();
+                }
             }
         }
     }
@@ -282,10 +294,11 @@ public class DatabaseHelper
     public async Task PopulateHotelsxAmenities()
     {
         const string query = @"INSERT INTO hotels_x_amenities(
+        hotelxamenity_id,
         hotel_id, 
         amenity_id
         ) 
-        VALUES ($1, $2)"
+        VALUES ($1, $2, $3)"
         ;
 
         string[] hotelxAmenityArray = File.ReadAllLines("../../../DATA/HOTELxAMENITY_DATA.csv");
@@ -298,7 +311,7 @@ public class DatabaseHelper
             {
                 cmd.Parameters.AddWithValue(int.Parse(hotelxAmenityInfo[0]));
                 cmd.Parameters.AddWithValue(int.Parse(hotelxAmenityInfo[1]));
-
+                cmd.Parameters.AddWithValue(int.Parse(hotelxAmenityInfo[2]));
                 await cmd.ExecuteNonQueryAsync();
             }
         }

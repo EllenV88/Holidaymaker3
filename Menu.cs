@@ -89,13 +89,37 @@ public class Menu
         Console.Write("Enter last name: ");
         string lastName = Console.ReadLine() ?? string.Empty;
 
+        Console.Write("Enter email: ");
+        string email = Console.ReadLine();
+
+        Console.Write("Enter phone number: ");
+        string phoneNumber = Console.ReadLine();
+
+        Console.Write("Enter date of birth (yyyy-mm-dd): ");
+        string dateOfBirth= Console.ReadLine();
+
         // Saves to SQL database
 
-        const string query = @"INSERT INTO customers (first_name, last_name) VALUES (@firstName, @lastName)";
-        await using (var cmd = _db.CreateCommand(query))
+        const string query1 =
+           @" SELECT setval('customers_customer_id_seq', (SELECT MAX(customer_id) FROM customers));";
+
+        await using (var cmd = _db.CreateCommand(query1))
         {
-            cmd.Parameters.AddWithValue("firstName", firstName);
-            cmd.Parameters.AddWithValue("lastName", lastName);
+            await cmd.ExecuteNonQueryAsync();
+        }
+
+            const string query2 = 
+           @" INSERT INTO customers (first_name, last_name, email, phone_number, date_of_birth)
+           VALUES ($1, $2, $3, $4, $5)";
+
+        await using (var cmd = _db.CreateCommand(query2))
+        {
+            Console.WriteLine(firstName);
+            cmd.Parameters.AddWithValue(firstName);
+            cmd.Parameters.AddWithValue(lastName);
+            cmd.Parameters.AddWithValue(email);
+            cmd.Parameters.AddWithValue(phoneNumber);
+            cmd.Parameters.AddWithValue(DateTime.Parse(dateOfBirth));
 
             await cmd.ExecuteNonQueryAsync();
         }

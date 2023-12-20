@@ -33,7 +33,7 @@ public class BookingFunction{
         while(true == insertLoop){ //insert hotel id
             //potentiellt byta ut/importera från search page funktion
             
-            Console.WriteLine("please enter a hotel id: ");
+            Console.WriteLine("Please enter a hotel id: ");
             bool success = int.TryParse(Console.ReadLine(), out hotelID);
             if(true == success){
                 insertLoop = false;
@@ -42,7 +42,12 @@ public class BookingFunction{
 
         insertLoop = true;
         while(true == insertLoop){ //insert room id
-            Console.WriteLine("please enter room id: ");
+            Console.WriteLine("Room Standards: \n");
+            Console.WriteLine("1 - Single\n");
+            Console.WriteLine("2 - Double\n");
+            Console.WriteLine("3 - Triple\n");
+            Console.WriteLine("4 - Suite\n");
+            Console.WriteLine("Please enter the desired rooms type: ");
             //ska vi kunna ha flera rum i en bokning eller? 
             //antar inte det för jag tror inte man kan ha flera values i en column (om man inte gör det till en string)
             bool success = int.TryParse(Console.ReadLine(), out roomID);
@@ -53,7 +58,7 @@ public class BookingFunction{
 
         insertLoop = true;
         while(true == insertLoop){ //insert customer_id
-            Console.WriteLine("please enter customer id: ");
+            Console.WriteLine("Please enter customer id: ");
             bool success = int.TryParse(Console.ReadLine(), out customerID);
             if(true == success){
                 insertLoop = false;
@@ -62,7 +67,7 @@ public class BookingFunction{
 
         insertLoop = true;
         while(true == insertLoop){ //children
-            Console.WriteLine("please enter the number of kids: ");
+            Console.WriteLine("Please enter the number of children: ");
             bool success = int.TryParse(Console.ReadLine(), out numberOfKids);
             if(true == success){
                 insertLoop = false;
@@ -71,7 +76,7 @@ public class BookingFunction{
 
         insertLoop = true;
         while(true == insertLoop){ //adults
-            Console.WriteLine("please enter the number of adults: ");
+            Console.WriteLine("Please enter the number of adults: ");
             bool success = int.TryParse(Console.ReadLine(), out numberOfAdults);
             if(true == success){
                 insertLoop = false;
@@ -80,9 +85,9 @@ public class BookingFunction{
 
         insertLoop = true;
         while(true == insertLoop){ //check in and out date
-            Console.WriteLine("please enter the check in date: ");
+            Console.WriteLine("Please enter the check in date: ");
             bool success = DateTime.TryParse(Console.ReadLine(), out checkInDate);
-            Console.WriteLine("please enter the check out date: ");
+            Console.WriteLine("Please enter the check out date: ");
             bool success2 = DateTime.TryParse(Console.ReadLine(), out checkOutDate);
             if (true == success || true == success2)
             {

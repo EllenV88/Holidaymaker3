@@ -6,9 +6,8 @@ const string dbUri = "Host=localhost;Port=5455;Username=postgres;Password=postgr
 await using var db = NpgsqlDataSource.Create(dbUri);
 
 var databaseCreator = new DatabaseCreator(db);
-//await databaseCreator.CreateDatabase();
-
 var databasehelper = new DatabaseHelper(db);
+
 Console.WriteLine("Would you like to reset the database? y/N");
 if(Console.ReadLine()?.ToLower() == "y")
 {

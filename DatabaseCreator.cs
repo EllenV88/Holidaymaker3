@@ -6,18 +6,10 @@ namespace Holidaymaker3;
 
 public class DatabaseCreator
 {
-
     private readonly NpgsqlDataSource _db;
-
     public DatabaseCreator(NpgsqlDataSource db)
     {
         _db = db;
-    }
-
-    public async Task CreateDatabase()
-    {
-        const string newDatabase = "CREATE DATABASE holidaymaker";
-        await _db.CreateCommand(newDatabase).ExecuteNonQueryAsync();
     }
 
     public async Task CreateTables()
@@ -107,5 +99,4 @@ public class DatabaseCreator
         )";
         await _db.CreateCommand(bookingsExtras).ExecuteNonQueryAsync();
     }
-
 }

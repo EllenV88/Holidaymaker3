@@ -7,7 +7,6 @@ namespace Holidaymaker3;
 public class BookingFunction{
 
     private readonly NpgsqlDataSource _db;
-
     public BookingFunction(NpgsqlDataSource db)
     {
         _db = db;
@@ -199,5 +198,4 @@ public class BookingFunction{
         }
         
     }
-
 }

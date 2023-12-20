@@ -9,6 +9,7 @@ public class Menu
     {
         _db = db;
     }
+
     public async Task MainMenu()
     {
         while (true)
@@ -42,7 +43,6 @@ public class Menu
             }
         }
     }
-
     public async Task CustomerMenu()
     {
         while (true)
@@ -75,7 +75,6 @@ public class Menu
             }
         }
     }
-
     public async Task RegisterNewCustomer()
     {
         Console.Clear();
@@ -129,7 +128,6 @@ public class Menu
         Console.WriteLine($"{firstName} {lastName} has been registered as a new customer.\n");
         Console.ReadKey();
     }
-
     public async Task BookingsMenu()
     {
         while (true)
@@ -164,7 +162,6 @@ public class Menu
             }
         }
     }
-
     public async Task HotelsAndRoomsMenu()
     {
         while (true)

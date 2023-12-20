@@ -33,7 +33,10 @@ public class Menu
                     break;
 
                 case "0":
-                    return;
+                    Console.Clear();
+                    await Console.Out.WriteLineAsync("- PROGRAM HAS EXITED -");
+                    Environment.Exit(1);
+                    break;
 
                 default:
                     Console.Clear();
@@ -98,19 +101,17 @@ public class Menu
         Console.Write("Enter date of birth (yyyy-mm-dd): ");
         string dateOfBirth = Console.ReadLine();
 
-        // Saves to SQL database
-
         const string query1 =
-           @" SELECT setval('customers_customer_id_seq', (SELECT MAX(customer_id) FROM customers));";
+        @"SELECT setval('customers_customer_id_seq', (SELECT MAX(customer_id) FROM customers));";
 
         await using (var cmd = _db.CreateCommand(query1))
         {
             await cmd.ExecuteNonQueryAsync();
         }
 
-        const string query2 =
-       @" INSERT INTO customers (first_name, last_name, email, phone_number, date_of_birth)
-           VALUES ($1, $2, $3, $4, $5)";
+        const string query2 = 
+        @"INSERT INTO customers(first_name, last_name, email, phone_number, date_of_birth)
+        VALUES ($1, $2, $3, $4, $5)";
 
         await using (var cmd = _db.CreateCommand(query2))
         {
@@ -123,7 +124,6 @@ public class Menu
 
             await cmd.ExecuteNonQueryAsync();
         }
-
 
         Console.Clear();
         Console.WriteLine($"{firstName} {lastName} has been registered as a new customer.\n");

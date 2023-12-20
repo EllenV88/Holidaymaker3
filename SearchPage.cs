@@ -27,11 +27,11 @@ public class SearchPage
         while (await reader.ReadAsync())
         {
             result += "\n";
-            result += "ID: " + reader.GetInt32(0);//hämta>id
+            result += "ID: " + reader.GetInt32(0);
             result += "\n";
-            result += "HOTEL: " + reader.GetString(1);//hämta>name
+            result += "HOTEL: " + reader.GetString(1);
             result += "\n";
-            result += "ADDRESS: " + reader.GetString(2);//hämta>city
+            result += "ADDRESS: " + reader.GetString(2);
             result += "\n";
         }
         result += "----------------------------------------------";

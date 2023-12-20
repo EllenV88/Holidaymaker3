@@ -26,8 +26,3 @@ if(Console.ReadLine()?.ToLower() == "y")
 
 var Menu = new Menu(db);
 await Menu.MainMenu();
-
-SearchPage searchPage = new(db);
-
-var bookingfunction = new BookingFunction(db);
-await bookingfunction.NewBooking(); 

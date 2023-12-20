@@ -253,15 +253,13 @@ public class DatabaseHelper
     public async Task PopulateHotelsxExtras()
 
         {
-            const string query = @"INSERT INTO hotels_x_extras(
+        const string query = @"INSERT INTO hotels_x_extras(
         hotelxextra_id,
         hotel_id, 
         extra_id, 
         price
         ) 
-
-        VALUES ($1, $2, $3, $4)"
-            ;
+        VALUES ($1, $2, $3, $4)";
 
         string[] hotelxExtraArray = File.ReadAllLines("../../../DATA/HOTELxEXTRA_DATA.csv");
 

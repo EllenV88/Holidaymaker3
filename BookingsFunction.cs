@@ -109,7 +109,6 @@ public class BookingFunction
             cmd.Parameters.AddWithValue(numberOfAdults);
             cmd.Parameters.AddWithValue(checkInDate);
             cmd.Parameters.AddWithValue(checkOutDate);
-
             await cmd.ExecuteNonQueryAsync();
         }
         

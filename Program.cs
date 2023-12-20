@@ -25,40 +25,5 @@ if(Console.ReadLine()?.ToLower() == "y")
     Console.WriteLine("Done populating tables.\n");
 }
 
-
-SearchPage searchPage = new(db);
-
-
 var Menu = new Menu(db);
 await Menu.MainMenu();
-
-var bookingfunction = new BookingFunction(db);
-await bookingfunction.NewBooking();
-
-//var bookingfunction = new BookingFunction(db);
-//await bookingfunction.NewBooking();
-
-
-
-//#region CreateDatabaseMenu
-//Console.Clear();
-//Console.WriteLine("do you want to create the database?");
-//string userinput = Console.ReadLine();
-//if ("y" == userinput || "" == userinput){
-//    Console.WriteLine("testtest");
-//    await Script.CreateDatabase();
-//}
-//Console.WriteLine("do you want to create all the tables?");
-//userinput = Console.ReadLine();
-//if ("y" == userinput || "" == userinput){
-//    Console.WriteLine("testtest");
-//    await Script.MakeTables();
-//}
-//Console.WriteLine("do you want to populate the database");
-//userinput = Console.ReadLine();
-//if ("y" == userinput || "" == userinput){
-//    Console.WriteLine("testtest");
-//await Script.MakeTables();
-//}
-//#endregion
-

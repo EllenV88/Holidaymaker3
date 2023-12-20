@@ -21,22 +21,23 @@ public class Menu
             Console.WriteLine("2 - Bookings\n");
             Console.WriteLine("0 - Exit\n");
 
-            string choice = Console.ReadLine();
-
-            switch (choice)
+            switch (Console.ReadLine())
             {
                 case "1":
                     await CustomerMenu();
                     break;
+
                 case "2":
                     await BookingsMenu();
                     break;
+
                 case "0":
                     return;
+
                 default:
                     Console.Clear();
                     Console.WriteLine("Pick something valid");
-                    Console.ReadKey();
+                    Thread.Sleep(1000);
                     break;
             }
         }
@@ -54,22 +55,23 @@ public class Menu
             Console.WriteLine("2 - View customer bookings\n");
             Console.WriteLine("0 - Go back\n");
 
-            string choice = Console.ReadLine();
-
-            switch (choice)
+            switch (Console.ReadLine())
             {
                 case "1":
                     await RegisterNewCustomer();
                     break;
+
                 case "2":
 
                     break;
+
                 case "0":
                     return;
+
                 default:
                     Console.Clear();
                     Console.WriteLine("Pick something valid");
-                    Console.ReadKey();
+                    Thread.Sleep(1000);
                     break;
             }
         }
@@ -141,16 +143,15 @@ public class Menu
             Console.WriteLine("2 - List of hotels\n");
             Console.WriteLine("0 - Go back\n");
 
-            string choice = Console.ReadLine();
-            SearchPage searchPage = new(_db);
 
-            switch (choice)
+            switch (Console.ReadLine())
             {
                 case "1":
+                    SearchPage searchPage = new(_db);
                     Console.WriteLine("\nPlease enter a city: "); //casesensitive
                     string city = Console.ReadLine() ?? string.Empty;
                     Console.WriteLine(await searchPage.HotelsByCity(city));
-                    Thread.Sleep(1000);
+
                     var bookingfunction = new BookingFunction(_db);
                     await bookingfunction.NewBooking();
                     break;
@@ -167,7 +168,7 @@ public class Menu
                 default:
                     Console.Clear();
                     Console.WriteLine("Pick something valid");
-                    Console.ReadKey();
+                    Thread.Sleep(1000);
                     break;
             }
         }
@@ -196,7 +197,6 @@ public class Menu
            
             Console.WriteLine($"{hotelId} - {name}, {address}, {city}, {country},  {beachDistance}m,  {centerDistance}m, *{rating}\n");
         }
-        
     }
 }
 

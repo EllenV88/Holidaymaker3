@@ -51,7 +51,7 @@ public class BookingFunction
             Console.WriteLine("4 - Suite");
             Console.Write("\nPlease enter the desired room type: ");
             bool success = int.TryParse(Console.ReadLine(), out roomID);
-            string input = Console.ReadLine();
+           
             if (true == success){
                 insertLoop = false;
             }
@@ -90,9 +90,9 @@ public class BookingFunction
 
         insertLoop = true;
         while(true == insertLoop){ //check in and out date
-            Console.WriteLine("\nPlease enter the check in date (yyyy/mm/dd): ");
+            Console.WriteLine("\nPlease enter the check in date (yyyy-mm-dd): ");
             bool success = DateTime.TryParse(Console.ReadLine(), out checkInDate);
-            Console.WriteLine("\nPlease enter the check out date (yyyy/mm/dd): ");
+            Console.WriteLine("\nPlease enter the check out date (yyyy-mm-dd): ");
             bool success2 = DateTime.TryParse(Console.ReadLine(), out checkOutDate);
             if (true == success || true == success2)
             {
@@ -112,8 +112,9 @@ public class BookingFunction
             cmd.Parameters.AddWithValue(checkOutDate);
             await cmd.ExecuteNonQueryAsync();
         }
-        
-        Console.WriteLine(@"what extras do you want
+
+        Console.WriteLine();
+        Console.WriteLine(@"Booking Additions:
                             1, Extra bed
                             2, Half board child
                             3, Half board adult
@@ -157,9 +158,13 @@ public class BookingFunction
                     break;
                 default:
                     break;
+
             }
-
+            
         }
-
+        Console.Clear();
+        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+        Console.WriteLine($"| Your booking has successfully been created and added to the database! |\n");
+        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     }
 }

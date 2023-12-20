@@ -8,4 +8,28 @@ hotel_id,name,address,city,country,beach_distance,center_distance,rating
 7,Garden Inn,090 4th Center,Hanoi,Vietnam,647,295,4.2
 8,Hampton,2 Stuart Alley,Phuket,Thailand,144,440,3.6
 9,Homewood Suites,9 Sunnyside Park,Naples,Italy,129,657,4.7
-10,Waldorf Astoria,9 Portage Road,Venice,Italy,361,721,3.8
+10,Waterfront Villa,10 Marina Street,Sydney,Australia,482,4023,4.2
+11,Surfside Retreat,25 Coastal Highway,Sydney,Australia,160,4828,4.6
+12,Cityscape Suites,45 Bayview Terrace,Sydney,Australia,1935,1287,3.8
+13,Beachview Apartments,78 Oceanfront Road,Sydney,Australia,643,6437,4.1
+14,Harbour Haven,90 Seaside Boulevard,Sydney,Australia,804,5151,3.9
+15,Marina Oasis,15 Harbor View Avenue,Barcelona,Spain,201,1500,4.5
+16,Coastal Comfort,30 Mediterranean Street,Barcelona,Spain,603,2800,4.3
+17,City Lights Inn,50 Plaza Central,Barcelona,Spain,1000,500,3.7
+18,Seafront Escape,75 Beachside Avenue,Barcelona,Spain,301,3500,4.0
+19,Harborview Hideaway,100 Seaview Drive,Barcelona,Spain,804,3000,3.2
+20,Seaside Retreat,22 Coastal Lane,Naples,Italy,160,2300,3.5
+21,Mediterranean View,55 Seaview Drive,Naples,Italy,321,3000,3.6
+22,Panoramic Suites,88 Oceanview Road,Naples,Italy,214,3500,3.4
+23,Coastal Tranquility,121 Seaside Boulevard,Naples,Italy,804,4000,3.2
+24,Bayview Serenity,14 Bayfront Terrace,Nice,France,643,2800,3.9
+25,Beachfront Bliss,27 Beach View Avenue,Nice,France,321,3200,4.2
+26,Promenade Retreat,36 Promenade Street,Nice,France,160,2500,4.7
+27,Cityscape Apartments,49 City Center Boulevard,Nice,France,965,1800,4.3
+28,Harborview Haven,60 Seaside Road,Nice,France,482,3700,4.0
+29,Tropical Oasis,10 Palm Beach Drive,Hanoi,Vietnam,500,3500,4.1
+30,Island Hideaway,25 Cove Road,Okinawa,Japan,200,4500,4.3
+31,Sandy Serenity,15 Shoreline Avenue,Okinawa,Japan,100,6000,4.5
+32,Beachside Retreat,30 Seaview Lane,Phuket,Thailand,300,2500,4.0
+33,Coastal Comfort,20 Beach Boulevard,Phuket,Thailand,250,3000,3.8
+34,Seaview Haven,10 Oceanfront Road,Phuket,Thailand,400,4000,3.6

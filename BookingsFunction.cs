@@ -14,7 +14,7 @@ public class BookingFunction
         _db = db;
     }
 
-    public async Task Confirmation()
+    public async Task ConfirmationMessage()
     {
         Console.Clear();
         Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
@@ -53,10 +53,10 @@ public class BookingFunction
         insertLoop = true;
         while(true == insertLoop){
             Console.WriteLine("\nRoom Standards: \n");
-            Console.WriteLine("1 - Single");
-            Console.WriteLine("2 - Double");
-            Console.WriteLine("3 - Triple");
-            Console.WriteLine("4 - Suite");
+            Console.WriteLine("1. Single");
+            Console.WriteLine("2. Double");
+            Console.WriteLine("3. Triple");
+            Console.WriteLine("4. Suite");
             Console.Write("\nPlease enter the desired room type: ");
             bool success = int.TryParse(Console.ReadLine(), out roomID);
 
@@ -151,7 +151,7 @@ public class BookingFunction
                         cmd.Parameters.AddWithValue(booking); 
                         cmd.Parameters.AddWithValue(chosenExtrasInt); 
                         await cmd.ExecuteNonQueryAsync(); }
-                    await Confirmation();
+                    await ConfirmationMessage();
                     break;
 
                 case "2":
@@ -159,7 +159,7 @@ public class BookingFunction
                         cmd.Parameters.AddWithValue(booking); 
                         cmd.Parameters.AddWithValue(chosenExtrasInt); 
                         await cmd.ExecuteNonQueryAsync(); }
-                    await Confirmation();
+                    await ConfirmationMessage();
 
                     break;
 
@@ -168,8 +168,7 @@ public class BookingFunction
                         cmd.Parameters.AddWithValue(booking); 
                         cmd.Parameters.AddWithValue(chosenExtrasInt); 
                         await cmd.ExecuteNonQueryAsync();}
-                    await Confirmation();
-
+                    await ConfirmationMessage();
                     break;
 
                 case "4":
@@ -177,8 +176,7 @@ public class BookingFunction
                         cmd.Parameters.AddWithValue(booking); 
                         cmd.Parameters.AddWithValue(chosenExtrasInt); 
                         await cmd.ExecuteNonQueryAsync();}
-                    await Confirmation();
-
+                    await ConfirmationMessage();
                     break;
 
                 case "5":
@@ -186,8 +184,7 @@ public class BookingFunction
                     cmd.Parameters.AddWithValue(booking); 
                     cmd.Parameters.AddWithValue(chosenExtrasInt); 
                     await cmd.ExecuteNonQueryAsync();}
-                    await Confirmation();
-
+                    await ConfirmationMessage();
                     break;
 
                 default:

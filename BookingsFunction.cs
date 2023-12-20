@@ -1,6 +1,7 @@
 using System;
 using System.Data.Common;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using Npgsql;
 
 namespace Holidaymaker3;
@@ -12,6 +13,24 @@ public class BookingFunction
     public BookingFunction(NpgsqlDataSource db)
     {
         _db = db;
+    }
+
+    public async Task AllBookings()
+    {
+        Console.Clear();
+        const string query = @"select * from bookings";
+        var cmd = _db.CreateCommand(query);
+        var reader = await cmd.ExecuteReaderAsync();
+
+        Console.WriteLine("\n| bookingID | hotelID | roomID | customerID | children | adults | CHECK-IN | CHECK-OUT |\n");
+        while (await reader.ReadAsync())
+        {
+            string convertCheckInDate = reader.GetDateTime(7).ToShortDateString();
+            string convertCheckOutDate = reader.GetDateTime(8).ToShortDateString();
+
+            Console.WriteLine($"| {reader.GetInt32(0)} | {reader.GetInt32(1)} | {reader.GetInt32(2)} | {reader.GetInt32(4)} | {reader.GetInt32(5)} | {reader.GetInt32(6)} | {convertCheckInDate} | {convertCheckOutDate} ");
+        }
+        Console.ReadLine();
     }
 
     public async Task ConfirmationMessage()

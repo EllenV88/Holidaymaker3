@@ -41,6 +41,7 @@ public class BookingFunction
         Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
         Thread.Sleep(2500);
     }
+  
     public async Task NewBooking()
     {
 
@@ -104,7 +105,7 @@ public class BookingFunction
                 insertLoop = false;
             }
         }
-
+      
         insertLoop = true;
         while(true == insertLoop){ //adults
             Console.Write("\nPlease enter the number of adults: ");
@@ -206,9 +207,13 @@ public class BookingFunction
                     await ConfirmationMessage();
                     break;
 
-                default:
-                    break;
-
+                default
+                   Console.Clear();
+                   Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+                   Console.WriteLine($"| Invalid choice, try again!|\n");
+                   Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+                   Thread.Sleep(2500);
+                break;
             }
         }
     }

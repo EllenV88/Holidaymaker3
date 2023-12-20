@@ -33,7 +33,10 @@ public class Menu
                     break;
 
                 case "0":
-                    return;
+                    Console.Clear();
+                    await Console.Out.WriteLineAsync("- PROGRAM HAS EXITED -");
+                    Environment.Exit(1);
+                    break;
 
                 default:
                     Console.Clear();

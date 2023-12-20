@@ -143,7 +143,6 @@ public class Menu
             Console.WriteLine("2 - List of hotels\n");
             Console.WriteLine("0 - Go back\n");
 
-
             switch (Console.ReadLine())
             {
                 case "1":

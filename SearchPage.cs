@@ -10,7 +10,6 @@ namespace Holidaymaker3;
 public class SearchPage
 {
     private readonly NpgsqlDataSource _db;
-
     public SearchPage(NpgsqlDataSource db)
     {
         _db = db;
@@ -20,7 +19,7 @@ public class SearchPage
     {
         string result = string.Empty;
 
-        const string query = "select hotel_id, name, address from hotels where City = $1";
+        const string query = "SELECT hotel_id, name, address FROM hotels WHERE city = $1";
         var cmd = _db.CreateCommand(query);
         cmd.Parameters.AddWithValue(choiceOfCity);
 

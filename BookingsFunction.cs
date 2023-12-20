@@ -83,7 +83,7 @@ public class BookingFunction
         while(true == insertLoop){ //adults
             Console.Write("\nPlease enter the number of adults: ");
             bool success = int.TryParse(Console.ReadLine(), out numberOfAdults);
-            if (true == succes)
+            if (true == success)
             {
                 insertLoop = false;
             }

@@ -83,13 +83,14 @@ public class BookingFunction
             if (true == success){
                 insertLoop = false;
             }
-           
         }
 
         insertLoop = true;
-        while(true == insertLoop){
+        while(true == insertLoop)
+        {
             Console.Write("\nPlease enter customer id: ");
             bool success = int.TryParse(Console.ReadLine(), out customerID);
+
             if (true == success)
             {
                 insertLoop = false;
@@ -97,9 +98,11 @@ public class BookingFunction
         }
 
         insertLoop = true;
-        while(true == insertLoop){
+        while(true == insertLoop)
+        {
             Console.Write("\nPlease enter the number of children: ");
             bool success = int.TryParse(Console.ReadLine(), out numberOfKids);
+
             if (true == success)
             {
                 insertLoop = false;
@@ -107,9 +110,11 @@ public class BookingFunction
         }
       
         insertLoop = true;
-        while(true == insertLoop){ //adults
+        while(true == insertLoop)
+        {
             Console.Write("\nPlease enter the number of adults: ");
             bool success = int.TryParse(Console.ReadLine(), out numberOfAdults);
+
             if (true == success)
             {
                 insertLoop = false;
@@ -117,16 +122,18 @@ public class BookingFunction
         }
 
         insertLoop = true;
-        while(true == insertLoop){ //check in and out date
+        while(true == insertLoop)
+        {
             Console.WriteLine("\nPlease enter the check in date (yyyy-mm-dd): ");
             bool success = DateTime.TryParse(Console.ReadLine(), out checkInDate);
+
             Console.WriteLine("\nPlease enter the check out date (yyyy-mm-dd): ");
             bool success2 = DateTime.TryParse(Console.ReadLine(), out checkOutDate);
+
             if (true == success || true == success2)
             {
                 insertLoop = false;
             }
-
         }
         
         await using (var cmd = _db.CreateCommand(insertBooking))
@@ -201,16 +208,16 @@ public class BookingFunction
 
                 case "5":
                     await using (var cmd = _db.CreateCommand(insertBookingsXExtras)){ 
-                    cmd.Parameters.AddWithValue(booking); 
-                    cmd.Parameters.AddWithValue(chosenExtrasInt); 
+                       cmd.Parameters.AddWithValue(booking); 
+                       cmd.Parameters.AddWithValue(chosenExtrasInt); 
                     await cmd.ExecuteNonQueryAsync();}
                     await ConfirmationMessage();
                     break;
 
-                default
+                default:
                    Console.Clear();
                    Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-                   Console.WriteLine($"| Invalid choice, try again!|\n");
+                   Console.WriteLine($" Invalid choice, try again!\n");
                    Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
                    Thread.Sleep(2500);
                 break;

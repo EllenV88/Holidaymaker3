@@ -1,3 +1,4 @@
+using System;
 using System.Data.Common;
 using System.Runtime.CompilerServices;
 using Npgsql;
@@ -32,9 +33,9 @@ public class BookingFunction
         DateTime checkOutDate = new DateTime(1999, 1, 1);
 
         bool insertLoop = true;
-        while (true == insertLoop)
-        {
-            Console.WriteLine("please enter a hotel id: ");
+
+        while(true == insertLoop){
+            Console.Write("\nPlease enter the hotel id: ");
             bool success = int.TryParse(Console.ReadLine(), out hotelID);
             if (true == success)
             {
@@ -43,20 +44,24 @@ public class BookingFunction
         }
 
         insertLoop = true;
-        while (true == insertLoop)
-        {
-            Console.WriteLine("please enter room id: ");
+        while(true == insertLoop){
+            Console.WriteLine("\nRoom Standards: \n");
+            Console.WriteLine("1 - Single");
+            Console.WriteLine("2 - Double");
+            Console.WriteLine("3 - Triple");
+            Console.WriteLine("4 - Suite");
+            Console.Write("\nPlease enter the desired room type: ");
             bool success = int.TryParse(Console.ReadLine(), out roomID);
-            if (true == success)
-            {
+            string input = Console.ReadLine();
+            if (true == success){
                 insertLoop = false;
             }
+           
         }
 
         insertLoop = true;
-        while (true == insertLoop)
-        {
-            Console.WriteLine("please enter customer id: ");
+        while(true == insertLoop){
+            Console.Write("\nPlease enter customer id: ");
             bool success = int.TryParse(Console.ReadLine(), out customerID);
             if (true == success)
             {
@@ -65,9 +70,8 @@ public class BookingFunction
         }
 
         insertLoop = true;
-        while (true == insertLoop)
-        {
-            Console.WriteLine("please enter the number of kids: ");
+        while(true == insertLoop){
+            Console.Write("\nPlease enter the number of children: ");
             bool success = int.TryParse(Console.ReadLine(), out numberOfKids);
             if (true == success)
             {
@@ -76,22 +80,20 @@ public class BookingFunction
         }
 
         insertLoop = true;
-        while (true == insertLoop)
-        {
-            Console.WriteLine("please enter the number of adults: ");
+        while(true == insertLoop){ //adults
+            Console.Write("\nPlease enter the number of adults: ");
             bool success = int.TryParse(Console.ReadLine(), out numberOfAdults);
-            if (true == success)
+            if (true == succes)
             {
                 insertLoop = false;
             }
         }
 
         insertLoop = true;
-        while (true == insertLoop)
-        {
-            Console.WriteLine("please enter the check in date: ");
+        while(true == insertLoop){ //check in and out date
+            Console.WriteLine("\nPlease enter the check in date (yyyy/mm/dd): ");
             bool success = DateTime.TryParse(Console.ReadLine(), out checkInDate);
-            Console.WriteLine("please enter the check out date: ");
+            Console.WriteLine("\nPlease enter the check out date (yyyy/mm/dd): ");
             bool success2 = DateTime.TryParse(Console.ReadLine(), out checkOutDate);
             if (true == success || true == success2)
             {

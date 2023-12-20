@@ -17,7 +17,6 @@ public class Menu
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
             Console.WriteLine("|    Welcome to Holidaymaker3!    |\n");
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-            Console.WriteLine("\n");
             Console.WriteLine("1 - Customers\n");
             Console.WriteLine("2 - Bookings\n");
             Console.WriteLine("0 - Exit\n");
@@ -96,7 +95,7 @@ public class Menu
         string phoneNumber = Console.ReadLine();
 
         Console.Write("Enter date of birth (yyyy-mm-dd): ");
-        string dateOfBirth= Console.ReadLine();
+        string dateOfBirth = Console.ReadLine();
 
         // Saves to SQL database
 
@@ -108,8 +107,8 @@ public class Menu
             await cmd.ExecuteNonQueryAsync();
         }
 
-            const string query2 = 
-           @" INSERT INTO customers (first_name, last_name, email, phone_number, date_of_birth)
+        const string query2 =
+       @" INSERT INTO customers (first_name, last_name, email, phone_number, date_of_birth)
            VALUES ($1, $2, $3, $4, $5)";
 
         await using (var cmd = _db.CreateCommand(query2))
@@ -139,6 +138,7 @@ public class Menu
             Console.WriteLine("|      Bookings management!       |\n");
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
             Console.WriteLine("1 - Create new booking\n");
+            Console.WriteLine("2 - List of hotels\n");
             Console.WriteLine("0 - Go back\n");
 
             string choice = Console.ReadLine();
@@ -154,8 +154,16 @@ public class Menu
                     var bookingfunction = new BookingFunction(_db);
                     await bookingfunction.NewBooking();
                     break;
+
+                case "2":
+                    Console.Clear();
+                    await DisplayHotels();
+                    Console.ReadKey();
+                    break;
+
                 case "0":
                     return;
+
                 default:
                     Console.Clear();
                     Console.WriteLine("Pick something valid");
@@ -165,37 +173,30 @@ public class Menu
         }
     }
 
-    public async Task HotelsAndRoomsMenu()
+    public async Task DisplayHotels()
     {
-        while (true)
+        Console.WriteLine("\n| ID | Hotel | Address | City | Country | Distance to Beach | Distance to Center | Rating |");
+        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+
+        string[] hotelArray = await File.ReadAllLinesAsync("../../../DATA/HOTEL_DATA.csv");
+        
+        for (int i = 1; i < hotelArray.Length; i++)
         {
-            Console.Clear();
-            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-            Console.WriteLine("|       Our Hotels & Rooms!       |\n");
-            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-            Console.WriteLine("1 - Search Engine\n");
-            Console.WriteLine("0 - Go back\n");
 
-            string choice = Console.ReadLine();
-            SearchPage searchPage = new(_db);
+            string[] hotelInfo = hotelArray[i].Split(",");
 
-            switch (choice)
-            {
-
-                case "1":
-                    Console.WriteLine("\nPlease enter a city: "); //casesensitive
-                    string city = Console.ReadLine() ?? string.Empty;
-                    Console.WriteLine(await searchPage.HotelsByCity(city));
-                    Console.ReadLine();
-                    break;
-                case "0":
-                    return;
-                default:
-                    Console.Clear();
-                    Console.WriteLine("Pick something valid");
-                    Console.ReadKey();
-                    break;
-            }
+            int hotelId = int.Parse(hotelInfo[0]);
+            string name = hotelInfo[1];
+            string address = hotelInfo[2];
+            string city = hotelInfo[3];
+            string country = hotelInfo[4];
+            double beachDistance = double.Parse(hotelInfo[5]);
+            double centerDistance = double.Parse(hotelInfo[6]);
+            double rating = double.Parse(hotelInfo[7].Replace('.', ','));
+           
+            Console.WriteLine($"{hotelId} - {name}, {address}, {city}, {country},  {beachDistance}m,  {centerDistance}m, *{rating}\n");
         }
+        
     }
 }
+

@@ -114,11 +114,11 @@ public class BookingFunction
         }
         
         Console.WriteLine("what extras do you want" +
-                            "1, Extra bed" +
-                            "2, Half board child" +
-                            "3, Half board adult" +
-                            "4, All-inclusive child" +
-                            "5, All-inclusive adult");
+                            "\n1, Extra bed" +
+                            "\n2, Half board child" +
+                            "\n3, Half board adult" +
+                            "\n4, All-inclusive child" +
+                            "\n5, All-inclusive adult");
 
         string chosenExtrasString = Console.ReadLine();
         int booking = 0;

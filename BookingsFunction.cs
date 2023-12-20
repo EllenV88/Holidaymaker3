@@ -51,10 +51,7 @@ public class BookingFunction
             Console.WriteLine("4 - Suite");
             Console.Write("\nPlease enter the desired room type: ");
             bool success = int.TryParse(Console.ReadLine(), out roomID);
-<<<<<<< HEAD
-           
-=======
->>>>>>> 8ca7fa04b04ff967b82e26ed742be7dcb61ffe03
+
             if (true == success){
                 insertLoop = false;
             }
@@ -115,7 +112,6 @@ public class BookingFunction
             cmd.Parameters.AddWithValue(checkOutDate);
             await cmd.ExecuteNonQueryAsync();
         }
-<<<<<<< HEAD
 
         Console.WriteLine();
         Console.WriteLine(@"Booking Additions:
@@ -124,15 +120,6 @@ public class BookingFunction
                             3, Half board adult
                             4, All-inclusive child
                             5, All-inclusive adult");
-=======
-        
-        Console.WriteLine("what extras do you want" +
-                            "\n1, Extra bed" +
-                            "\n2, Half board child" +
-                            "\n3, Half board adult" +
-                            "\n4, All-inclusive child" +
-                            "\n5, All-inclusive adult");
->>>>>>> 8ca7fa04b04ff967b82e26ed742be7dcb61ffe03
 
         string chosenExtrasString = Console.ReadLine();
         int booking = 0;

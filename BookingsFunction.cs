@@ -99,8 +99,7 @@ public class BookingFunction
             }
 
         }
-
-
+        
         await using (var cmd = _db.CreateCommand(insertBooking))
         {
             cmd.Parameters.AddWithValue(hotelID);
@@ -113,38 +112,24 @@ public class BookingFunction
 
             await cmd.ExecuteNonQueryAsync();
         }
-
-
-
-
+        
         Console.WriteLine(@"what extras do you want
-1, Extra bed
-2, Half board child
-3, Half board adult
-4, All-inclusive child
-5, All-inclusive adult");
+                            1, Extra bed
+                            2, Half board child
+                            3, Half board adult
+                            4, All-inclusive child
+                            5, All-inclusive adult");
 
         string chosenExtrasString = Console.ReadLine();
         int booking = 0;
-
-
-        var insertBookingsXExtras = @"INSERT INTO bookings_x_extras(
-            booking_id,
-            extra_id) 
-            VALUES ($1, $2)";
-
-
         string[] chosenExtras = chosenExtrasString.Split(", ");
-
-        await using var command =
-            _db.CreateCommand("SELECT booking_id  FROM bookings ORDER BY booking_id DESC LIMIT 1");
+        
+        await using var command = _db.CreateCommand("SELECT booking_id  FROM bookings ORDER BY booking_id DESC LIMIT 1");
         await using var reader = await command.ExecuteReaderAsync();
-
         while (await reader.ReadAsync())
-        {
-            booking = reader.GetInt32(0);
-        }
-
+        { booking = reader.GetInt32(0); }
+        
+        var insertBookingsXExtras = @"INSERT INTO bookings_x_extras(booking_id, extra_id) VALUES ($1, $2)";
         foreach (string c in chosenExtras)
         {
             int chosenExtrasInt = Int32.Parse(c);
@@ -152,53 +137,23 @@ public class BookingFunction
             {
                 case "1":
                     await using (var cmd = _db.CreateCommand(insertBookingsXExtras))
-                    {
-                        cmd.Parameters.AddWithValue(booking);
-                        cmd.Parameters.AddWithValue(chosenExtrasInt);
-
-                        await cmd.ExecuteNonQueryAsync();
-                    }
-
+                    { cmd.Parameters.AddWithValue(booking); cmd.Parameters.AddWithValue(chosenExtrasInt); await cmd.ExecuteNonQueryAsync(); }
                     break;
                 case "2":
                     await using (var cmd = _db.CreateCommand(insertBookingsXExtras))
-                    {
-                        cmd.Parameters.AddWithValue(booking);
-                        cmd.Parameters.AddWithValue(chosenExtrasInt);
-
-                        await cmd.ExecuteNonQueryAsync();
-                    }
-
+                    { cmd.Parameters.AddWithValue(booking); cmd.Parameters.AddWithValue(chosenExtrasInt); await cmd.ExecuteNonQueryAsync(); }
                     break;
                 case "3":
                     await using (var cmd = _db.CreateCommand(insertBookingsXExtras))
-                    {
-                        cmd.Parameters.AddWithValue(booking);
-                        cmd.Parameters.AddWithValue(chosenExtrasInt);
-
-                        await cmd.ExecuteNonQueryAsync();
-                    }
-
+                    { cmd.Parameters.AddWithValue(booking); cmd.Parameters.AddWithValue(chosenExtrasInt); await cmd.ExecuteNonQueryAsync(); }
                     break;
                 case "4":
                     await using (var cmd = _db.CreateCommand(insertBookingsXExtras))
-                    {
-                        cmd.Parameters.AddWithValue(booking);
-                        cmd.Parameters.AddWithValue(chosenExtrasInt);
-
-                        await cmd.ExecuteNonQueryAsync();
-                    }
-
+                    { cmd.Parameters.AddWithValue(booking); cmd.Parameters.AddWithValue(chosenExtrasInt); await cmd.ExecuteNonQueryAsync();}
                     break;
                 case "5":
                     await using (var cmd = _db.CreateCommand(insertBookingsXExtras))
-                    {
-                        cmd.Parameters.AddWithValue(booking);
-                        cmd.Parameters.AddWithValue(chosenExtrasInt);
-
-                        await cmd.ExecuteNonQueryAsync();
-                    }
-
+                    { cmd.Parameters.AddWithValue(booking); cmd.Parameters.AddWithValue(chosenExtrasInt); await cmd.ExecuteNonQueryAsync();}
                     break;
                 default:
                     break;

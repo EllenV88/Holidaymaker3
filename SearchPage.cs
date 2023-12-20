@@ -10,19 +10,18 @@ namespace Holidaymaker3;
 public class SearchPage
 {
     private readonly NpgsqlDataSource _db;
-
     public SearchPage(NpgsqlDataSource db)
     {
         _db = db;
     }
 
-    public async Task<string> HotelsByCity(string city)
+    public async Task<string> HotelsByCity(string choiceOfCity)
     {
         string result = string.Empty;
 
-        const string query = "select hotel_id, name, city from hotels where city = $1";
+        const string query = "SELECT hotel_id, name, address FROM hotels WHERE city = $1";
         var cmd = _db.CreateCommand(query);
-        cmd.Parameters.AddWithValue(city);
+        cmd.Parameters.AddWithValue(choiceOfCity);
 
         var reader = await cmd.ExecuteReaderAsync();
         while (await reader.ReadAsync())
@@ -32,7 +31,7 @@ public class SearchPage
             result += "\n";
             result += "HOTEL: " + reader.GetString(1);//hämta>name
             result += "\n";
-            result += "CITY: " + reader.GetString(2);//hämta>city
+            result += "ADDRESS: " + reader.GetString(2);//hämta>city
             result += "\n";
         }
         result += "----------------------------------------------";

@@ -21,6 +21,7 @@ public class DatabaseHelper
         const string query = "drop schema public cascade; create schema public;";
         await _db.CreateCommand(query).ExecuteNonQueryAsync();
     }
+
     public async Task PopulateCustomersTable()
     {
         const string query = @"INSERT INTO customers(
@@ -59,7 +60,6 @@ public class DatabaseHelper
         }
 
     }
-
     public async Task PopulateHotelsTable()
     {
         const string query = @"INSERT INTO hotels(
@@ -104,7 +104,43 @@ public class DatabaseHelper
             }
         }
     }
+    public async Task PopulateBookingsTable()
+    {
+        const string query = @"INSERT INTO bookings(
+        booking_id,
+        children,
+        adults,
+        check_in_date,
+        check_out_date
+        ) 
+        VALUES ($1, $2, $3, $4, $5)
+        ON CONFLICT(booking_id) DO UPDATE SET
+        children = EXCLUDED.children,
+        adults = EXCLUDED.adults,
+        check_in_date = EXCLUDED.check_in_date,
+        check_out_date = EXCLUDED.check_out_date"
+        ;
 
+        string[] bookingArray = File.ReadAllLines("../../../DATA/BOOKINGS_DATA.csv");
+
+        for (int i = 1; i < bookingArray.Length; i++)
+        {
+            string[] bookingInfo = bookingArray[i].Split(",");
+            //TODO change phone_number type from long to string because thats what they are
+
+            await using (var cmd = _db.CreateCommand(query))
+            {
+                cmd.Parameters.AddWithValue(int.Parse(bookingInfo[0]));
+                cmd.Parameters.AddWithValue(int.Parse(bookingInfo[1]));
+                cmd.Parameters.AddWithValue(int.Parse(bookingInfo[2]));
+                cmd.Parameters.AddWithValue(DateTime.Parse(bookingInfo[3]));
+                cmd.Parameters.AddWithValue(DateTime.Parse(bookingInfo[4]));
+
+                await cmd.ExecuteNonQueryAsync();
+            }
+        }
+
+    }
     public async Task PopulateAmenityTable()
     {
         const string query = @"INSERT INTO amenities(
@@ -158,7 +194,6 @@ public class DatabaseHelper
             }
         }
     }
-
     public async Task PopulateRoomsTable()
     {
         const string query = @"INSERT INTO rooms(
@@ -184,44 +219,6 @@ public class DatabaseHelper
                 await cmd.ExecuteNonQueryAsync();
             }
         }
-    }
-
-    public async Task PopulateBookingsTable()
-    {
-        const string query = @"INSERT INTO bookings(
-        booking_id,
-        children,
-        adults,
-        check_in_date,
-        check_out_date
-        ) 
-        VALUES ($1, $2, $3, $4, $5)
-        ON CONFLICT(booking_id) DO UPDATE SET
-        children = EXCLUDED.children,
-        adults = EXCLUDED.adults,
-        check_in_date = EXCLUDED.check_in_date,
-        check_out_date = EXCLUDED.check_out_date"
-        ;
-
-        string[] bookingArray = File.ReadAllLines("../../../DATA/BOOKINGS_DATA.csv");
-
-        for (int i = 1; i < bookingArray.Length; i++)
-        {
-            string[] bookingInfo = bookingArray[i].Split(",");
-            //TODO change phone_number type from long to string because thats what they are
-
-            await using (var cmd = _db.CreateCommand(query))
-            {
-                cmd.Parameters.AddWithValue(int.Parse(bookingInfo[0]));
-                cmd.Parameters.AddWithValue(int.Parse(bookingInfo[1]));
-                cmd.Parameters.AddWithValue(int.Parse(bookingInfo[2]));
-                cmd.Parameters.AddWithValue(DateTime.Parse(bookingInfo[3]));
-                cmd.Parameters.AddWithValue(DateTime.Parse(bookingInfo[4]));
-
-                await cmd.ExecuteNonQueryAsync();
-            }
-        }
-
     }
 
     public async Task PopulateHotelxRooms()
@@ -253,7 +250,6 @@ public class DatabaseHelper
         }
 
     }
-
     public async Task PopulateHotelsxExtras()
 
         {
@@ -290,7 +286,6 @@ public class DatabaseHelper
             }
         }
     }
-
     public async Task PopulateHotelsxAmenities()
     {
         const string query = @"INSERT INTO hotels_x_amenities(
@@ -316,5 +311,4 @@ public class DatabaseHelper
             }
         }
     }
-
 }

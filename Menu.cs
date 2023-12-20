@@ -154,9 +154,13 @@ public class Menu
                     var bookingfunction = new BookingFunction(_db);
                     await bookingfunction.NewBooking();
                     break;
+
                 case "2":
-                    Console.WriteLine(DisplayHotels());
+                    Console.Clear();
+                    await DisplayHotels();
+                    Console.ReadKey();
                     break;
+
                 case "0":
                     return;
 
@@ -171,7 +175,9 @@ public class Menu
 
     public async Task DisplayHotels()
     {
-        
+        Console.WriteLine("\n| ID | Hotel | Address | City | Country | Distance to Beach | Distance to Center | Rating |");
+        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+
         string[] hotelArray = await File.ReadAllLinesAsync("../../../DATA/HOTEL_DATA.csv");
         
         for (int i = 1; i < hotelArray.Length; i++)
@@ -186,13 +192,10 @@ public class Menu
             string country = hotelInfo[4];
             double beachDistance = double.Parse(hotelInfo[5]);
             double centerDistance = double.Parse(hotelInfo[6]);
-            double rating = double.Parse(hotelInfo[7]);
+            double rating = double.Parse(hotelInfo[7].Replace('.', ','));
            
-            Console.WriteLine($"{hotelId} - {name}, {address}, {city}, {country},  {beachDistance}m,  {centerDistance}m, *{rating}");
+            Console.WriteLine($"{hotelId} - {name}, {address}, {city}, {country},  {beachDistance}m,  {centerDistance}m, *{rating}\n");
         }
-        
-        Console.WriteLine("\n| ID | Hotel | Address | City | Country | Distance to Beach | Distance to Center | Rating |");
-        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
         
     }
 }

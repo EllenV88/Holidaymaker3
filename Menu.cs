@@ -65,7 +65,8 @@ public class Menu
                     break;
 
                 case "2":
-
+                    var bookingfunction = new BookingFunction(_db);
+                    await bookingfunction.AllBookings();
                     break;
 
                 case "0":

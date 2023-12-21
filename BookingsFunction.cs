@@ -22,13 +22,13 @@ public class BookingFunction
         var cmd = _db.CreateCommand(query);
         var reader = await cmd.ExecuteReaderAsync();
 
-        Console.WriteLine("\n| bookingID | hotelID | roomID | customerID | children | adults | CHECK-IN | CHECK-OUT |\n");
+        Console.WriteLine("\n| bookingID | hotelID | roomID | customerID | children | adults |  CHECK-IN  |  CHECK-OUT  |\n");
         while (await reader.ReadAsync())
         {
             string convertCheckInDate = reader.GetDateTime(7).ToShortDateString();
             string convertCheckOutDate = reader.GetDateTime(8).ToShortDateString();
 
-            Console.WriteLine($"| {reader.GetInt32(0)} | {reader.GetInt32(1)} | {reader.GetInt32(2)} | {reader.GetInt32(4)} | {reader.GetInt32(5)} | {reader.GetInt32(6)} | {convertCheckInDate} | {convertCheckOutDate} ");
+            Console.WriteLine($"| {reader.GetInt32(0),-9} | {reader.GetInt32(1),-7} | {reader.GetInt32(2),-6} | {reader.GetInt32(4),-10} | {reader.GetInt32(5),-8} | {reader.GetInt32(6),-6} | {convertCheckInDate} | {convertCheckOutDate}  |");
         }
         Console.ReadLine();
     }
@@ -149,7 +149,7 @@ public class BookingFunction
         }
 
         Console.WriteLine();
-        Console.WriteLine("Booking Additions: ");
+        Console.WriteLine("Booking Additions: \n");
         Console.WriteLine("1. Extra bed");
         Console.WriteLine("2. Half board child");
         Console.WriteLine("3. Half board adult");
@@ -219,7 +219,7 @@ public class BookingFunction
                    Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
                    Console.WriteLine($" Invalid choice, try again!\n");
                    Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-                   Thread.Sleep(2500);
+                   Thread.Sleep(3000);
                 break;
             }
         }

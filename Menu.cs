@@ -127,7 +127,10 @@ public class Menu
         }
 
         Console.Clear();
-        Console.WriteLine($"{firstName} {lastName} has been registered as a new customer.\n");
+        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+        Console.WriteLine($" {firstName} {lastName} has been registered as a new customer. \n");
+        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+
         Console.ReadKey();
     }
     public async Task BookingsMenu()
@@ -146,7 +149,7 @@ public class Menu
             {
                 case "1":
                     SearchPage searchPage = new(_db);
-                    Console.WriteLine("\nPlease enter a city: "); //casesensitive
+                    Console.Write("\nSearch hotel by city: "); //casesensitive
                     string city = Console.ReadLine() ?? string.Empty;
                     Console.WriteLine(await searchPage.HotelsByCity(city));
 

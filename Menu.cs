@@ -130,8 +130,7 @@ public class Menu
         Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
         Console.WriteLine($" {firstName} {lastName} has been registered as a new customer. \n");
         Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-
-        Console.ReadKey();
+        Thread.Sleep(3000);
     }
     public async Task BookingsMenu()
     {

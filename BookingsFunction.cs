@@ -96,7 +96,29 @@ public class BookingFunction
             bool success2 = DateTime.TryParse(Console.ReadLine(), out checkOutDate);
             if (true == success || true == success2)
             {
-                insertLoop = false;
+                int availability = 0;
+                await using var checkBookingsAvailability = _db.CreateCommand(
+                    "SELECT * FROM bookings WHERE (check_in_date, check_out_date) OVERLAPS ($1, $2) AND room_id = $3;");
+                
+                await using var reader2 = await checkBookingsAvailability.ExecuteReaderAsync();
+                while (await reader2.ReadAsync())
+                {
+                    checkBookingsAvailability.Parameters.AddWithValue(checkInDate);
+                    checkBookingsAvailability.Parameters.AddWithValue(checkOutDate);
+                    checkBookingsAvailability.Parameters.AddWithValue(roomID);
+                    availability = reader2.GetInt32(0);
+                }
+
+                if (availability == 0)
+                {
+                    insertLoop = false;
+                }
+                else
+                {
+                    Console.WriteLine("this room is already booked during this date");
+                }
+                
+
             }
 
         }

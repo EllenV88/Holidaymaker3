@@ -22,7 +22,9 @@ public class BookingFunction
         var cmd = _db.CreateCommand(query);
         var reader = await cmd.ExecuteReaderAsync();
 
-        Console.WriteLine("\n| bookingID | hotelID | roomID | customerID | children | adults |  CHECK-IN  |  CHECK-OUT  |\n");
+        Console.WriteLine("____________________________________________________________________________________________");
+        Console.WriteLine("\n| BookingID | HotelID | RoomID | CustomerID | Children | Adults |  CHECK-IN  |  CHECK-OUT  |");
+        Console.WriteLine("____________________________________________________________________________________________\n");
         while (await reader.ReadAsync())
         {
             string convertCheckInDate = reader.GetDateTime(7).ToShortDateString();
